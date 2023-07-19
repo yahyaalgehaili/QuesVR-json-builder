@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #FCFCFC;
+}
+
+body {
+  margin: 0;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 400;
+}
+
+/* colors */
+:root {
+  --purple-700: #110528;
+  --purple-600: #14052f;
+  --purple-500: #1b073f;
+  --purple-400: #22094F;
+  --purple-300: #4e3a72;
+  --purple-200: #7a6b95;
+  --purple-100: #a79db9;
+
+  --red-700: #5d0014;
+  --red-600: #8b001e;
+  --red-500: #ba0028;
+  --red-400: #E80032;
+  --red-300: #ed335b;
+  --red-200: #f16684;
+  --red-100: #f48099;
+}

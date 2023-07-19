@@ -1,0 +1,9 @@
+.nav-bar {
+  height: 80px;
+  background: linear-gradient(to top right, rgb(17, 5, 40) 50%, rgb(232, 0, 50) 150%);
+  display: flex;
+  align-items: center;
+  padding: 20px 80px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 40, 0.5);
+}
