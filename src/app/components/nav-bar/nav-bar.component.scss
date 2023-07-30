@@ -6,4 +6,10 @@
   padding: 20px 80px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 40, 0.5);
+  justify-content: space-between;
+
+  &__menu {
+    cursor: pointer;
+    color: white;
+  }
 }

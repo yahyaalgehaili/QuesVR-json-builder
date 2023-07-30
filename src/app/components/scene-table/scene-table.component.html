@@ -1,0 +1,58 @@
+<div class="scene-table"
+     cdkDrag
+     (cdkDragReleased)="updateArrows()"
+     cdkDragBoundary=".builder__canvas">
+  <div class="scene-table__header">
+    <span class="scene-table__id">{{video.id}}</span>
+    <span class="scene-table__location">{{video.fileName}}</span>
+    <span class="scene-table__video-format">{{video.videoFormat}}</span>
+    <span class="scene-table__drag-area"
+          [id]="'videoId' + video.id"
+          [class.scene-table__drag-area--active]="DraggingArrow$ | async">
+    </span>
+  </div>
+  <div class="scene-table__question-container"
+       *ngFor="let question of video.questions; let questionId = index">
+    <div class="scene-table__question">
+      <div class="scene-table__question-title-top">
+        <input class="scene-table__question-title" [(ngModel)]="question.title">
+        <button mat-icon-button (click)="removeQuestion(questionId)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="scene-table__question-title-bottom">
+        <div class="scene-table__question-timestamp">
+          <mat-icon>schedule</mat-icon>
+          <input type="number" min="-1" step=".01"  placeholder="start" [(ngModel)]="question.startAppearance" class="scene-table__question-timestamp-input">
+          -
+          <input type="number" min="-1" step=".01" placeholder="end" [(ngModel)]="question.endAppearance" class="scene-table__question-timestamp-input">
+        </div>
+      </div>
+
+    </div>
+    <div class="scene-table__answers">
+      <app-video-option *ngFor="let option of question.options; let i = index"
+                        class="scene-table__answer"
+                        [id]="'video' + video.id + 'question' + questionId + 'answer' + i"
+                        [optionElementId]="'video' + video.id + 'question' + questionId + 'answer' + i"
+                        [option]="option" (onRemove)="removeOption(questionId, i)">
+      </app-video-option>
+      <button mat-flat-button
+              class="scene-table__add-option"
+              [color]="'primary'"
+              (click)="addOption(questionId)"
+              *ngIf="question.options.length < 4">
+        <mat-icon>add</mat-icon>
+        <span>Add option</span>
+      </button>
+    </div>
+  </div>
+  <div class="scene-table__add-question-container">
+    <button mat-button
+            class="scene-table__add-question"
+            (click)="addQuestion()">
+      <mat-icon>add</mat-icon>
+      <span>Add question</span>
+    </button>
+  </div>
+</div>

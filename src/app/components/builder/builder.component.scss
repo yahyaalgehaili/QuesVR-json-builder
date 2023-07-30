@@ -1,0 +1,29 @@
+.builder {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__toolbar {
+    margin: 10px 0;
+  }
+
+  &__canvas {
+    position: relative;
+    background-color: #efefef;
+    height: 2000px;
+    min-width: 100%;
+    min-height: 100%;
+    width: 4000px;
+
+    &-container {
+      height: 80dvh;
+      width: 100%;
+      overflow: scroll;
+    }
+  }
+
+  &__table {
+    width: 300px;
+  }
+
+}

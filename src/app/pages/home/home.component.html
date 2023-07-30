@@ -1,6 +1,13 @@
 <div class="home">
-  <app-nav-bar class="home__nav"></app-nav-bar>
+  <app-nav-bar class="home__nav" (sidebarToggle)="toggleSideBar()"></app-nav-bar>
   <div class="home__container">
-
+    <app-builder [scene]="scene" class="home__builder"></app-builder>
+    <div class="home__sidebar" *ngIf="sidebarToggled">
+      <h3>json</h3>
+      <pre class="home__generated-json">
+        {{scene | json}}
+      </pre>
+    </div>
   </div>
+
 </div>

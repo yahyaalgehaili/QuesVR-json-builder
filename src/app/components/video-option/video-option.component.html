@@ -1,0 +1,14 @@
+<span class="video-option">
+  <a class="video-option__remove" (click)="removeItem()">
+    <mat-icon>do_not_disturb_on</mat-icon>
+  </a>
+  <input [(ngModel)]="option.title" class="video-option__input" placeholder="option label...">
+  <a class="video-option__arrow"
+     cdkDrag
+     (cdkDragStarted)="onArrowDrag()"
+     (cdkDragEnded)="onArrowDrop($event)"
+     [cdkDragFreeDragPosition]="arrowLocation"
+     [cdkDragData]="option.gotoId">
+    <mat-icon>link</mat-icon>
+  </a>
+</span>
