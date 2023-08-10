@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {VideoModel} from '../../models/scene.model';
+import {VIDEO_FORMATS, VideoModel} from '../../models/scene.model';
 import {ArrowDragService} from '../../services/arrow-drag.service';
 import {Observable} from 'rxjs';
 
@@ -52,5 +52,29 @@ export class SceneTableComponent implements OnInit {
 
   removeQuestion(questionId: number): void {
     this.video.questions.splice(questionId, 1);
+  }
+
+  protected readonly VIDEO_FORMATS = VIDEO_FORMATS;
+
+  getVideoFormatIcon(videoFormat: VIDEO_FORMATS): string {
+    switch (videoFormat) {
+      case VIDEO_FORMATS.LEFT_EYE_ON_TOP:
+        return 'view_in_ar';
+      case VIDEO_FORMATS.MONO_SCOPE:
+        return 'crop_din';
+      default:
+        return '';
+    }
+  }
+
+  getVideoFormatTooltip(videoFormat: VIDEO_FORMATS): string {
+    switch (videoFormat) {
+      case VIDEO_FORMATS.LEFT_EYE_ON_TOP:
+        return 'Left eye on top';
+      case VIDEO_FORMATS.MONO_SCOPE:
+        return 'Monoscope';
+      default:
+        return '';
+    }
   }
 }

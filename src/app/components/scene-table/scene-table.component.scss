@@ -22,6 +22,21 @@
     position: relative;
   }
 
+  &__location {
+    &-input {
+      border: none;
+      margin: 0 8px;
+      background-color: rgba(255, 255, 255, 0);
+      flex: 8;
+      font-weight: 800;
+      font-family: "Outfit", sans-serif;
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+  }
+
   &__drag-area {
     position: absolute;
     width: 300px;
@@ -29,7 +44,7 @@
     top: 0;
     left: 0;
     border: #ed335b solid 5px;
-    z-index: 10;
+    z-index: -1;
     animation: pulse 2s infinite;
     transition: opacity 100ms;
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
@@ -37,6 +52,7 @@
 
     &--active {
       opacity: 1;
+      z-index: 10;
     }
   }
 
@@ -134,7 +150,31 @@
     height: 40px;
     justify-content: center;
   }
+
+  &__video-format {
+
+    &-option {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      padding: 0 !important;
+
+      ::ng-deep .mdc-list-item__primary-text {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        margin: 0 !important;
+
+        mat-icon {
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+      }
+    }
+  }
 }
+
 
 @keyframes pulse {
   0% {

@@ -4,8 +4,26 @@
      cdkDragBoundary=".builder__canvas">
   <div class="scene-table__header">
     <span class="scene-table__id">{{video.id}}</span>
-    <span class="scene-table__location">{{video.fileName}}</span>
-    <span class="scene-table__video-format">{{video.videoFormat}}</span>
+    <span class="scene-table__location">
+      <input class="scene-table__location-input" [(ngModel)]="video.fileName">
+    </span>
+    <span class="scene-table__video-format">
+      <mat-select [(ngModel)]="video.videoFormat"
+                  [matTooltip]="'videoFormat: ' + getVideoFormatTooltip(video.videoFormat)"
+                  [hideSingleSelectionIndicator]="true">
+        <mat-select-trigger >
+          <mat-icon>{{getVideoFormatIcon(video.videoFormat)}}</mat-icon>
+        </mat-select-trigger>
+        <mat-option [value]="VIDEO_FORMATS.LEFT_EYE_ON_TOP" class="scene-table__video-format-option"
+                [matTooltip]="getVideoFormatTooltip(VIDEO_FORMATS.LEFT_EYE_ON_TOP)" matTooltipPosition="above">
+          <ng-container [ngTemplateOutlet]="left_eye_on_top"></ng-container>
+        </mat-option>
+        <mat-option [value]="VIDEO_FORMATS.MONO_SCOPE" class="scene-table__video-format-option"
+                [matTooltip]="getVideoFormatTooltip(VIDEO_FORMATS.MONO_SCOPE)">
+          <ng-container [ngTemplateOutlet]="mono_scope"></ng-container>
+        </mat-option>
+      </mat-select>
+    </span>
     <span class="scene-table__drag-area"
           [id]="'videoId' + video.id"
           [class.scene-table__drag-area--active]="DraggingArrow$ | async">
@@ -23,9 +41,9 @@
       <div class="scene-table__question-title-bottom">
         <div class="scene-table__question-timestamp">
           <mat-icon>schedule</mat-icon>
-          <input type="number" min="-1" step=".01"  placeholder="start" [(ngModel)]="question.startAppearance" class="scene-table__question-timestamp-input">
+          <input type="number" min="-1" step="1"  placeholder="start" [(ngModel)]="question.startAppearance" class="scene-table__question-timestamp-input">
           -
-          <input type="number" min="-1" step=".01" placeholder="end" [(ngModel)]="question.endAppearance" class="scene-table__question-timestamp-input">
+          <input type="number" min="-1" step="1" placeholder="end" [(ngModel)]="question.endAppearance" class="scene-table__question-timestamp-input">
         </div>
       </div>
 
@@ -56,3 +74,11 @@
     </button>
   </div>
 </div>
+
+<ng-template #left_eye_on_top>
+  <mat-icon>view_in_ar</mat-icon>
+</ng-template>
+
+<ng-template #mono_scope>
+  <mat-icon>crop_din</mat-icon>
+</ng-template>

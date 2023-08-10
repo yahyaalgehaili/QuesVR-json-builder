@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Scene} from '../../models/scene.model';
+import {Scene, VIDEO_FORMATS, VideoModel} from '../../models/scene.model';
 import {ArrowDragService} from '../../services/arrow-drag.service';
 
 @Component({
@@ -23,4 +23,22 @@ export class BuilderComponent implements OnInit {
     this.draggingArrowService.updatedTables$.next(true);
   }
 
+  addVideo(): void {
+    const newVideo: VideoModel = {
+      id: this.findLowestId(),
+      videoFormat: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
+      fileName: '',
+      questions: []
+    }
+
+    this.scene.videos.push(newVideo);
+  }
+
+  findLowestId(): number {
+    const sortedScenes: VideoModel[] =
+      this.scene.videos.sort((a, b) => a.id - b.id);
+    const highestId: number = sortedScenes[sortedScenes.length - 1].id;
+
+    return highestId + 1;
+  }
 }

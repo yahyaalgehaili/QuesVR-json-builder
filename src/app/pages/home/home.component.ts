@@ -19,8 +19,8 @@ export class HomeComponent {
         questions: [
           {
             title: 'Where do you want to go?',
-            startAppearance: 0.10,
-            endAppearance: 0.50,
+            startAppearance: 10,
+            endAppearance: 50,
             options: [
               {title: 'left', gotoId: 0},
               {title: 'right', gotoId: 0},
@@ -36,8 +36,8 @@ export class HomeComponent {
         questions: [
           {
             title: 'Where do you want to go?',
-            startAppearance: 0.10,
-            endAppearance: 0.50,
+            startAppearance: 10,
+            endAppearance: 50,
             options: [
               {title: 'left', gotoId: 1},
               {title: 'right', gotoId: 2},
@@ -53,8 +53,8 @@ export class HomeComponent {
         questions: [
           {
             title: 'Where do you want to go?',
-            startAppearance: 0.10,
-            endAppearance: 0.50,
+            startAppearance: 10,
+            endAppearance: 50,
             options: [
               {title: 'left', gotoId: 1},
               {title: 'right', gotoId: 2},
@@ -70,8 +70,8 @@ export class HomeComponent {
         questions: [
           {
             title: 'Where do you want to go?',
-            startAppearance: 0.10,
-            endAppearance: 0.50,
+            startAppearance: 10,
+            endAppearance: 50,
             options: [
               {title: 'left', gotoId: 1},
               {title: 'right', gotoId: 2},

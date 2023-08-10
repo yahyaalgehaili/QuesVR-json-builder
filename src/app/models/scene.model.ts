@@ -20,6 +20,7 @@ export interface VideoModel {
   fileName: string;
   videoFormat: VIDEO_FORMATS;
   questions: QuestionModel[];
+  nextVideo?: number;
 }
 
 export interface QuestionModel {
