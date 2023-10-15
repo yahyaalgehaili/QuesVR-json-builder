@@ -1,0 +1,14 @@
+.json-import-dialog {
+  display: flex;
+  flex-direction: column;
+
+  &__actions {
+    justify-self: end;
+  }
+
+  ::ng-deep {
+    .jsoneditor {
+      height: 600px;
+    }
+  }
+}

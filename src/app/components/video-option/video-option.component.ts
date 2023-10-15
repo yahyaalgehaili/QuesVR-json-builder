@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {OptionModel} from '../../models/scene.model';
 import {ArrowDragService} from '../../services/arrow-drag.service';
@@ -11,7 +11,7 @@ declare var LeaderLine: any;
   templateUrl: './video-option.component.html',
   styleUrls: ['./video-option.component.scss']
 })
-export class VideoOptionComponent implements OnInit, OnDestroy {
+export class VideoOptionComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private draggingArrowService: ArrowDragService) {
   }
@@ -46,8 +46,16 @@ export class VideoOptionComponent implements OnInit, OnDestroy {
     this.subscription = this.updatedTable$.subscribe((): void => this.updateArrow());
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => this.initArrow(), 10);
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+
+    if (this.goToArrow) {
+      this.goToArrow.remove();
+    }
   }
 
   onArrowDrag(): void {
@@ -56,10 +64,19 @@ export class VideoOptionComponent implements OnInit, OnDestroy {
 
   onArrowDrop(dropEvent: CdkDragEnd): void {
     this.goToElement = (dropEvent.event.srcElement as HTMLElement);
-    const goToId: string = (dropEvent.event.srcElement as HTMLElement).id;
-    if (goToId.startsWith('videoId')) {
+    const goToId: number = parseInt(
+      (dropEvent.event.srcElement as HTMLElement).id.replace('videoId', '')
+    );
 
-      this.option.gotoId = parseInt(goToId.replace('videoId', ''));
+    this.createGoToVideoArrow(goToId, this.goToElement)
+
+    this.draggingArrowService.setDraggingArrow(false);
+    this.resetArrowLocation();
+  }
+
+  private createGoToVideoArrow(gotoId: number, goToTemplate: HTMLElement | null): void {
+    if (gotoId >= 0) {
+      this.option.gotoId = gotoId;
 
       if (this.goToArrow) {
         this.goToArrow.remove();
@@ -67,7 +84,7 @@ export class VideoOptionComponent implements OnInit, OnDestroy {
 
       this.goToArrow = new LeaderLine(
         document.getElementById(this.optionElementId),
-        (dropEvent.event.srcElement as HTMLElement),
+        goToTemplate,
         this.arrowOptions
       )
     }
@@ -99,13 +116,22 @@ export class VideoOptionComponent implements OnInit, OnDestroy {
   }
 
   removeItem(): void {
-    if (this.goToArrow) {
-      this.goToArrow.remove();
-    }
     this.onRemove.emit(true);
   }
 
   resetArrowLocation(): void {
     this.arrowLocation = {x: 0, y: 0};
+  }
+
+  private initArrow() {
+    if (this.option.gotoId >= 0) {
+      const goToTemplate: HTMLElement | null = document.getElementById(`videoId${this.option.gotoId}`);
+
+      if (goToTemplate) {
+        this.goToElement = goToTemplate;
+        this.createGoToVideoArrow(this.option.gotoId, goToTemplate);
+      }
+
+    }
   }
 }

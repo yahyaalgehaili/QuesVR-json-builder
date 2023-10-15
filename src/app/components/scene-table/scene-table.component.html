@@ -1,29 +1,36 @@
 <div class="scene-table"
      cdkDrag
-     (cdkDragReleased)="updateArrows()"
+     [cdkDragFreeDragPosition]="video.builderConfig ? video.builderConfig.point : {x: 0, y: 0}"
+     (cdkDragReleased)="onReleaseVideo()" (cdkDragEnded)="onVideoDragEnd($event)"
      cdkDragBoundary=".builder__canvas">
   <div class="scene-table__header">
     <span class="scene-table__id">{{video.id}}</span>
     <span class="scene-table__location">
-      <input class="scene-table__location-input" [(ngModel)]="video.fileName">
+      <input class="scene-table__location-input" placeholder="video path..." [(ngModel)]="video.fileName">
     </span>
     <span class="scene-table__video-format">
-      <mat-select [(ngModel)]="video.videoFormat"
+      <mat-select class="scene-table__video-format-select" [(ngModel)]="video.videoFormat"
                   [matTooltip]="'videoFormat: ' + getVideoFormatTooltip(video.videoFormat)"
                   [hideSingleSelectionIndicator]="true">
-        <mat-select-trigger >
+        <mat-select-trigger>
           <mat-icon>{{getVideoFormatIcon(video.videoFormat)}}</mat-icon>
         </mat-select-trigger>
         <mat-option [value]="VIDEO_FORMATS.LEFT_EYE_ON_TOP" class="scene-table__video-format-option"
-                [matTooltip]="getVideoFormatTooltip(VIDEO_FORMATS.LEFT_EYE_ON_TOP)" matTooltipPosition="above">
+                    [matTooltip]="getVideoFormatTooltip(VIDEO_FORMATS.LEFT_EYE_ON_TOP)" matTooltipPosition="above">
           <ng-container [ngTemplateOutlet]="left_eye_on_top"></ng-container>
         </mat-option>
         <mat-option [value]="VIDEO_FORMATS.MONO_SCOPE" class="scene-table__video-format-option"
-                [matTooltip]="getVideoFormatTooltip(VIDEO_FORMATS.MONO_SCOPE)">
+                    [matTooltip]="getVideoFormatTooltip(VIDEO_FORMATS.MONO_SCOPE)">
           <ng-container [ngTemplateOutlet]="mono_scope"></ng-container>
         </mat-option>
       </mat-select>
     </span>
+    <span class="scene-table__delete-action">
+      <button mat-icon-button (click)="removeVideo()" [matTooltip]="'Remove video'">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </span>
+
     <span class="scene-table__drag-area"
           [id]="'videoId' + video.id"
           [class.scene-table__drag-area--active]="DraggingArrow$ | async">
@@ -33,17 +40,19 @@
        *ngFor="let question of video.questions; let questionId = index">
     <div class="scene-table__question">
       <div class="scene-table__question-title-top">
-        <input class="scene-table__question-title" [(ngModel)]="question.title">
-        <button mat-icon-button (click)="removeQuestion(questionId)">
+        <input class="scene-table__question-title" placeholder="question to ask..." [(ngModel)]="question.title">
+        <button mat-icon-button (click)="removeQuestion(questionId)" [matTooltip]="'remove question'">
           <mat-icon>close</mat-icon>
         </button>
       </div>
       <div class="scene-table__question-title-bottom">
         <div class="scene-table__question-timestamp">
-          <mat-icon>schedule</mat-icon>
-          <input type="number" min="-1" step="1"  placeholder="start" [(ngModel)]="question.startAppearance" class="scene-table__question-timestamp-input">
+          <mat-icon [matTooltip]="'show question at timestamps...'">schedule</mat-icon>
+          <input type="number" min="-1" step="1" placeholder="start" [(ngModel)]="question.startAppearance"
+                 class="scene-table__question-timestamp-input">
           -
-          <input type="number" min="-1" step="1" placeholder="end" [(ngModel)]="question.endAppearance" class="scene-table__question-timestamp-input">
+          <input type="number" min="-1" step="1" placeholder="end" [(ngModel)]="question.endAppearance"
+                 class="scene-table__question-timestamp-input">
         </div>
       </div>
 
@@ -71,6 +80,27 @@
             (click)="addQuestion()">
       <mat-icon>add</mat-icon>
       <span>Add question</span>
+    </button>
+  </div>
+  <div class="scene-table__add-question-container scene-table__next-video-container"
+       [id]="'next-video-action-' + video.id">
+    <button mat-flat-button
+            cdkDrag
+            [color]="'primary'"
+            (cdkDragStarted)="onArrowDrag()"
+            (cdkDragEnded)="onArrowDrop($event)"
+            [cdkDragFreeDragPosition]="arrowLocation"
+            [cdkDragData]="video.nextVideo"
+            class="scene-table__next-video">
+      <mat-icon>link</mat-icon>
+      <span>Video end link</span>
+    </button>
+    <button mat-flat-button
+            *ngIf="Number(video?.nextVideo) >= 0"
+            (click)="removeNextVideoLink()"
+            [color]="'primary'"
+            class="scene-table__next-video-remove">
+      <mat-icon>delete</mat-icon>
     </button>
   </div>
 </div>

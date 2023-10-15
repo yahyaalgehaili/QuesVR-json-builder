@@ -1,0 +1,21 @@
+<div class="json-import-dialog">
+  <div mat-dialog-title>
+    <h1>import json</h1>
+  </div>
+
+  <div mat-dialog-content>
+    <form [formGroup]="form">
+      <json-editor
+        *ngIf="editorOptions"
+        [options]="editorOptions"
+        formControlName="jsonInput" (change)="updateJson($event)">
+      </json-editor>
+    </form>
+  </div>
+
+  <div mat-dialog-actions class="json-import-dialog__actions" align="end" >
+    <button mat-button (click)="cancel()">cancel</button>
+    <button mat-button [disabled]="!form.valid" [mat-dialog-close]="userJson" [color]="'primary'" cdkFocusInitial>Import</button>
+  </div>
+</div>
+

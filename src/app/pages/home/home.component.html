@@ -3,7 +3,14 @@
   <div class="home__container">
     <app-builder [scene]="scene" class="home__builder"></app-builder>
     <div class="home__sidebar" *ngIf="sidebarToggled">
-      <h3>json</h3>
+      <div class="home__sidebar-header">
+        <h3>json</h3>
+        <button mat-icon-button
+                [cdkCopyToClipboard]="copyJson()"
+                [matTooltip]="'copies Json to clipboard'">
+          <mat-icon>content_copy</mat-icon>
+        </button>
+      </div>
       <pre class="home__generated-json">
         {{scene | json}}
       </pre>

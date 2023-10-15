@@ -13,10 +13,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import { VideoOptionComponent } from './components/video-option/video-option.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import { JsonImportDialogComponent } from './components/json-import-dialog/json-import-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {NgJsonEditorModule} from 'ang-jsoneditor';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,8 @@ import {MatSelectModule} from '@angular/material/select';
     HomeComponent,
     BuilderComponent,
     SceneTableComponent,
-    VideoOptionComponent
+    VideoOptionComponent,
+    JsonImportDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,11 @@ import {MatSelectModule} from '@angular/material/select';
     FormsModule,
     MatButtonModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    ClipboardModule,
+    MatDialogModule,
+    NgJsonEditorModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

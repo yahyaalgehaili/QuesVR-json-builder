@@ -1,3 +1,5 @@
+import {Point} from '@angular/cdk/drag-drop';
+
 export enum VIDEO_FORMATS {
   LEFT_EYE_ON_TOP = 0,
   MONO_SCOPE = 1
@@ -21,6 +23,11 @@ export interface VideoModel {
   videoFormat: VIDEO_FORMATS;
   questions: QuestionModel[];
   nextVideo?: number;
+  builderConfig?: BuilderConfig;
+}
+
+export interface BuilderConfig {
+  point: Point;
 }
 
 export interface QuestionModel {

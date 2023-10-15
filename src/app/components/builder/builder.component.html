@@ -1,12 +1,23 @@
 <div class="builder">
   <div class="builder__toolbar">
-    <button class="builder__add-button" (click)="addVideo()">add</button>
+    <button mat-flat-button class="builder__add-button" [color]="'primary'" (click)="addVideo()">
+      <mat-icon>add</mat-icon>
+      add
+    </button>
+    <button mat-flat-button class="builder__add-button" [color]="'primary'" (click)="clearScene()">
+      <mat-icon>remove</mat-icon>
+      clear
+    </button>
+    <button mat-flat-button class="builder__add-button" [color]="'primary'" (click)="openImportDialog()">
+      <mat-icon>publish</mat-icon>
+      import Json
+    </button>
   </div>
   <div class="builder__canvas-container" (scroll)="scrollStart()">
-    <div class="builder__canvas">
+    <div class="builder__canvas" *ngIf="scene.videos">
       <div *ngFor="let video of scene.videos"
            class="builder__table">
-        <app-scene-table [video]="video">
+        <app-scene-table [video]="video" (onRemoveVideo)="removeVideo($event)">
         </app-scene-table>
       </div>
     </div>

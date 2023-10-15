@@ -26,8 +26,9 @@ export class HomeComponent {
               {title: 'right', gotoId: 0},
               {title: 'up', gotoId: 0}
             ]
-          }
-        ]
+          },
+        ],
+        nextVideo: 1,
       },
       {
         id: 1,
@@ -44,7 +45,13 @@ export class HomeComponent {
               {title: 'up', gotoId: 3}
             ]
           }
-        ]
+        ],
+        builderConfig: {
+          point: {
+            x: 620,
+            y: 320
+          }
+        }
       },
       {
         id: 2,
@@ -87,5 +94,9 @@ export class HomeComponent {
 
   toggleSideBar() {
     this.sidebarToggled = !this.sidebarToggled
+  }
+
+  copyJson(): string {
+    return JSON.stringify(this.scene)
   }
 }
