@@ -42,6 +42,9 @@ export class BuilderComponent {
   }
 
   findLowestId(): number {
+    if (this.scene.videos.length === 0) {
+      return 0;
+    }
     const sortedScenes: VideoModel[] =
       this.scene.videos.sort((a, b) => a.id - b.id);
     const highestId: number = sortedScenes.length > 0 ? sortedScenes[sortedScenes.length - 1]?.id : 0;

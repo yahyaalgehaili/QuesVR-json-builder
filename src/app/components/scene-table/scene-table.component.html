@@ -25,7 +25,7 @@
         </mat-option>
       </mat-select>
     </span>
-    <span class="scene-table__delete-action">
+    <span class="scene-table__delete-action" *ngIf="video.id !== 0">
       <button mat-icon-button (click)="removeVideo()" [matTooltip]="'Remove video'">
         <mat-icon>delete</mat-icon>
       </button>

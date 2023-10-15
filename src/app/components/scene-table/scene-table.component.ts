@@ -64,6 +64,7 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.goToArrow) {
       this.goToArrow.remove();
+      this.goToArrow = undefined;
     }
   }
 

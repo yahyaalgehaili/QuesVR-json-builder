@@ -55,7 +55,10 @@ export class VideoOptionComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.goToArrow) {
       this.goToArrow.remove();
+      this.goToArrow = undefined;
     }
+
+    // todo: fix issue where arrows that go to removed tables cause crashes
   }
 
   onArrowDrag(): void {
