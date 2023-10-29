@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {OptionModel} from '../../models/scene.model';
-import {ArrowDragService} from '../../services/arrow-drag.service';
+import {ArrowDragService, GoToArrow} from '../../services/arrow-drag.service';
 import {Observable, Subscription} from 'rxjs';
 
 declare var LeaderLine: any;
@@ -44,6 +44,12 @@ export class VideoOptionComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.updatedTable$ = this.draggingArrowService.updatedTables$;
     this.subscription = this.updatedTable$.subscribe((): void => this.updateArrow());
+    this.draggingArrowService.lastRemovedTarget$.subscribe((arrowTarget: string) => {
+      if (arrowTarget === `videoId${this.option.gotoId}` && this.goToArrow) {
+        this.goToArrow.remove();
+        this.goToArrow = undefined;
+      }
+    })
   }
 
   ngAfterViewInit() {
@@ -57,8 +63,6 @@ export class VideoOptionComponent implements OnInit, AfterViewInit, OnDestroy {
       this.goToArrow.remove();
       this.goToArrow = undefined;
     }
-
-    // todo: fix issue where arrows that go to removed tables cause crashes
   }
 
   onArrowDrag(): void {
@@ -90,6 +94,18 @@ export class VideoOptionComponent implements OnInit, AfterViewInit, OnDestroy {
         goToTemplate,
         this.arrowOptions
       )
+    }
+
+    const currentElement = document.getElementById(this.optionElementId);
+    if (currentElement && goToTemplate) {
+      const arrow: GoToArrow = {
+        sourceId: this.optionElementId,
+        sourceElement: currentElement,
+        targetId: `videoId${gotoId}`,
+        targetElement: goToTemplate,
+        arrow: this.goToArrow
+      }
+      this.draggingArrowService.addOrUpdateArrow(arrow);
     }
 
     this.draggingArrowService.setDraggingArrow(false);

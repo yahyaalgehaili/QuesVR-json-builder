@@ -53,10 +53,15 @@ export class BuilderComponent {
   }
 
   removeVideo(video: VideoModel) {
-    this.scene.videos.splice(
-      this.scene.videos.findIndex((v: VideoModel): boolean => v.id === video.id),
-      1)
-    setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);
+    this.draggingArrowService.removeArrowsWithTargetId(`videoId${video.id}`)
+
+    setTimeout(() => {
+      this.scene.videos.splice(
+        this.scene.videos.findIndex((v: VideoModel): boolean => v.id === video.id),
+        1)
+      setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);
+    }, 100)
+
   }
 
   clearScene() {

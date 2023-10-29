@@ -23,7 +23,7 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   arrowLocation: { x: 0, y: 0 };
 
-  nextVideoElement: HTMLElement;
+  nextVideoElement: HTMLElement | undefined;
 
   goToArrow: any;
 
@@ -53,6 +53,14 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.DraggingArrow$ = this.draggingArrowService.getDraggingArrow$();
     this.updatedTable$ = this.draggingArrowService.updatedTables$;
     this.subscription = this.updatedTable$.subscribe((): void => this.updateArrow());
+
+    this.draggingArrowService.lastRemovedTarget$.subscribe((arrowTarget: string) => {
+      if (arrowTarget === this.nextVideoElement?.id && this.goToArrow) {
+        this.goToArrow.remove();
+        this.goToArrow = undefined;
+        this.nextVideoElement = undefined;
+      }
+    })
   }
 
   ngAfterViewInit() {
