@@ -40,6 +40,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "leader-line": "^1.0.7",
-    "typescript": "~5.3.2"
+    "typescript": "~5.2.2"
   }
 }
