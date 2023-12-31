@@ -1,0 +1,54 @@
+@use '@angular/material' as mat;
+@use 'src/lib/core/theming/_palette.scss' as themes;
+
+@include mat.core();
+
+$my-primary: mat.define-palette(themes.$md-primary, 500);
+$my-accent: mat.define-palette(themes.$md-secondary, A200, A100, A400);
+
+// The "warn" palette is optional and defaults to red if not specified.
+$my-warn: mat.define-palette(mat.$red-palette);
+
+$my-header-font: mat.define-typography-level(
+  $font-family: Outfit,
+  $font-weight: 400,
+  $line-height: 1,
+  $font-size: 1rem,
+  $letter-spacing: normal,
+);
+
+$my-body-font: mat.define-typography-level(
+  $font-family: WorkSans,
+  $font-weight: 400,
+  $line-height: 1,
+  $font-size: 1rem,
+  $letter-spacing: normal,
+);
+
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+  ),
+  typography: mat.define-typography-config(
+    $font-family: $my-header-font,
+    $headline-1: $my-header-font,
+    $headline-2: $my-header-font,
+    $headline-3: $my-header-font,
+    $headline-4: $my-header-font,
+    $headline-5: $my-header-font,
+    $headline-6: $my-header-font,
+    $subtitle-1: $my-header-font,
+    $subtitle-2: $my-header-font,
+    $body-1: $my-body-font,
+    $body-2: $my-body-font,
+    $caption: $my-body-font,
+    $button: $my-body-font,
+    $overline: $my-body-font
+  ),
+  density: 0,
+));
+
+@include mat.angular-material-theme($my-theme);
+
