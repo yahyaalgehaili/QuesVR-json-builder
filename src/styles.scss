@@ -1,5 +1,4 @@
-@import "~jsoneditor/dist/jsoneditor.min.css";
-
+@use "jsoneditor/dist/jsoneditor.min.css";
 
 /* You can add global styles to this file, and also import other style files */
 *, *::before, *::after {
@@ -33,6 +32,97 @@ body {
   --red-300: #ed335b;
   --red-200: #f16684;
   --red-100: #f48099;
+
+
+  // primary colors
+  --primary-50 : #e4e1ea;
+  --primary-100 : #bdb5ca;
+  --primary-200 : #9184a7;
+  --primary-300 : #645384;
+  --primary-400 : #432e69;
+  --primary-500 : #22094f;
+  --primary-600 : #1e0848;
+  --primary-700 : #19063f;
+  --primary-800 : #140536;
+  --primary-900 : #0c0226;
+  --primary-A100 : #7b61ff;
+  --primary-A200 : #512eff;
+  --primary-A400 : #2a00fa;
+  --primary-A700 : #2500e0;
+  --primary-contrast-50 : #000000;
+  --primary-contrast-100 : #000000;
+  --primary-contrast-200 : #000000;
+  --primary-contrast-300 : #ffffff;
+  --primary-contrast-400 : #ffffff;
+  --primary-contrast-500 : #ffffff;
+  --primary-contrast-600 : #ffffff;
+  --primary-contrast-700 : #ffffff;
+  --primary-contrast-800 : #ffffff;
+  --primary-contrast-900 : #ffffff;
+  --primary-contrast-A100 : #ffffff;
+  --primary-contrast-A200 : #ffffff;
+  --primary-contrast-A400 : #ffffff;
+  --primary-contrast-A700 : #ffffff;
+
+  // secondary colors
+  --secondary-50 : #f7e0e5;
+  --secondary-100 : #eab3bf;
+  --secondary-200 : #dd8094;
+  --secondary-300 : #cf4d69;
+  --secondary-400 : #c42648;
+  --secondary-500 : #ba0028;
+  --secondary-600 : #b30024;
+  --secondary-700 : #ab001e;
+  --secondary-800 : #a30018;
+  --secondary-900 : #94000f;
+  --secondary-A100 : #ffbfc2;
+  --secondary-A200 : #ff8c91;
+  --secondary-A400 : #ff5961;
+  --secondary-A700 : #ff4048;
+  --secondary-contrast-50 : #000000;
+  --secondary-contrast-100 : #000000;
+  --secondary-contrast-200 : #000000;
+  --secondary-contrast-300 : #ffffff;
+  --secondary-contrast-400 : #ffffff;
+  --secondary-contrast-500 : #ffffff;
+  --secondary-contrast-600 : #ffffff;
+  --secondary-contrast-700 : #ffffff;
+  --secondary-contrast-800 : #ffffff;
+  --secondary-contrast-900 : #ffffff;
+  --secondary-contrast-A100 : #000000;
+  --secondary-contrast-A200 : #000000;
+  --secondary-contrast-A400 : #000000;
+  --secondary-contrast-A700 : #ffffff;
+
+  // neutral colors
+  --neutral-50 : #edebef;
+  --neutral-100 : #d1cdd8;
+  --neutral-200 : #b3abbe;
+  --neutral-300 : #9489a4;
+  --neutral-400 : #7d7091;
+  --neutral-500 : #66577d;
+  --neutral-600 : #5e4f75;
+  --neutral-700 : #53466a;
+  --neutral-800 : #493c60;
+  --neutral-900 : #382c4d;
+  --neutral-A100 : #bc99ff;
+  --neutral-A200 : #9b66ff;
+  --neutral-A400 : #7933ff;
+  --neutral-A700 : #681aff;
+  --neutral-contrast-50 : #000000;
+  --neutral-contrast-100 : #000000;
+  --neutral-contrast-200 : #000000;
+  --neutral-contrast-300 : #000000;
+  --neutral-contrast-400 : #ffffff;
+  --neutral-contrast-500 : #ffffff;
+  --neutral-contrast-600 : #ffffff;
+  --neutral-contrast-700 : #ffffff;
+  --neutral-contrast-800 : #ffffff;
+  --neutral-contrast-900 : #ffffff;
+  --neutral-contrast-A100 : #000000;
+  --neutral-contrast-A200 : #000000;
+  --neutral-contrast-A400 : #ffffff;
+  --neutral-contrast-A700 : #ffffff;
 }
 
 html, body { height: 100%; }

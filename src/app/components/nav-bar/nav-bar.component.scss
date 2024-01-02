@@ -1,6 +1,6 @@
 .nav-bar {
   height: 80px;
-  background: linear-gradient(to top right, rgb(17, 5, 40) 50%, rgb(232, 0, 50) 150%);
+  background: var(--purple-700);
   display: flex;
   align-items: center;
   padding: 20px 80px;
