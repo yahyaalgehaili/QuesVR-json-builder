@@ -21,6 +21,9 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 import { JsonImportDialogComponent } from './components/json-import-dialog/json-import-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {NgJsonEditorModule} from 'ang-jsoneditor';
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {HttpClient} from "@angular/common/http";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 
 @NgModule({
   declarations: [
@@ -38,6 +41,13 @@ import {NgJsonEditorModule} from 'ang-jsoneditor';
     NgOptimizedImage,
     DragDropModule,
     BrowserAnimationsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     MatIconModule,
     MatSidenavModule,
     FormsModule,
@@ -53,4 +63,8 @@ import {NgJsonEditorModule} from 'ang-jsoneditor';
   bootstrap: [AppComponent]
 })
 export class AppModule {
+}
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
 }
