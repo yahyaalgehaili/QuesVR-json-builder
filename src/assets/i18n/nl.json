@@ -1,3 +1,17 @@
 {
-
+  "BUILDER": {
+    "ADD": "Voeg een nieuwe video toe",
+    "CLEAR": "Verwijder alle videos",
+    "CODE": "Open de code sidebar",
+    "MENU": "Open de video sidebar",
+    "IMPORT": "Importeer een bestaande JSON structuur"
+  },
+  "HOME": {
+    "GET_STARTED": "Begin nu",
+    "CONTINUE_FROM_SAVE": "Ga verder vanuit import",
+    "POWERED_BY": "Powered by GreenCircle"
+  },
+  "NAVBAR": {
+    "GETTING_STARTED": "Begin nu"
+  }
 }

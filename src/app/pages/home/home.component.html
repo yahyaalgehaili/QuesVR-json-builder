@@ -1,19 +1,15 @@
 <div class="home">
-  <app-nav-bar class="home__nav" (sidebarToggle)="toggleSideBar()"></app-nav-bar>
   <div class="home__container">
-    <app-builder [scene]="scene" class="home__builder"></app-builder>
-    <div class="home__sidebar" *ngIf="sidebarToggled">
-      <div class="home__sidebar-header">
-        <h3>json</h3>
-        <button mat-icon-button
-                [cdkCopyToClipboard]="copyJson()"
-                [matTooltip]="'copies Json to clipboard'">
-          <mat-icon>content_copy</mat-icon>
-        </button>
+    <div class="home__hero">
+      <mat-icon class="home__hero-icon">rocket</mat-icon>
+      <h1 class="home__hero-header">Json builder</h1>
+      <div class="home__actions">
+        <button mat-flat-button color="primary" (click)="navigateToBuilder()">{{"HOME.GET_STARTED" | translate}}</button>
+        <button mat-stroked-button color="primary">{{"HOME.CONTINUE_FROM_SAVE" | translate}}</button>
       </div>
-      <pre class="home__generated-json">
-        {{scene | json}}
-      </pre>
+      <span class="home__footer">
+        {{"HOME.POWERED_BY" | translate}}
+      </span>
     </div>
   </div>
 </div>

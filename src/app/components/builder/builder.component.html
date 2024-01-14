@@ -1,27 +1,54 @@
 <div class="builder">
   <div class="builder__toolbar">
-    <button mat-flat-button class="builder__add-button" [color]="'primary'" (click)="addVideo()">
-      <mat-icon>add</mat-icon>
-      add
-    </button>
-    <button mat-flat-button class="builder__add-button" [color]="'primary'" (click)="clearScene()">
-      <mat-icon>remove</mat-icon>
-      clear
-    </button>
-    <button mat-flat-button class="builder__add-button" [color]="'primary'" (click)="openImportDialog()">
-      <mat-icon>publish</mat-icon>
-      import Json
-    </button>
+    <div>
+      <button mat-icon-button
+              class="builder__add-button small-icon-button"
+              [matTooltip]="'BUILDER.MENU' | translate"
+              [color]="'primary'">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <div>
+      <button mat-icon-button
+              class="builder__add-button small-icon-button"
+              [matTooltip]="'BUILDER.ADD' | translate"
+              [color]="'primary'"
+              (click)="addVideo()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button
+              class="builder__add-button small-icon-button"
+              [matTooltip]="'BUILDER.CLEAR' | translate"
+              [color]="'primary'"
+              (click)="clearScene()">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <button mat-icon-button
+              class="builder__add-button small-icon-button"
+              [matTooltip]="'BUILDER.IMPORT' | translate"
+              [color]="'primary'"
+              (click)="openImportDialog()">
+        <mat-icon>publish</mat-icon>
+      </button>
+    </div>
+    <div>
+      <button mat-icon-button
+              class="builder__add-button small-icon-button"
+              [matTooltip]="'BUILDER.CODE' | translate"
+              [color]="'primary'">
+        <mat-icon>code</mat-icon>
+      </button>
+    </div>
   </div>
   <div class="builder__canvas-container" (scroll)="scrollStart()">
     <div class="builder__canvas" *ngIf="scene.videos">
-      <div *ngFor="let video of scene.videos"
-           class="builder__table">
-        <app-scene-table [video]="video" (onRemoveVideo)="removeVideo($event)">
-        </app-scene-table>
-      </div>
+      @for (video of scene.videos; track video.id) {
+        <div class="builder__table">
+          <app-scene-table [video]="video" (onRemoveVideo)="removeVideo($event)">
+          </app-scene-table>
+        </div>
+      }
     </div>
   </div>
-
 </div>
 

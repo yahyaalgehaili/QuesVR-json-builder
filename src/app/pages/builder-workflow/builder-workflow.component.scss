@@ -1,0 +1,48 @@
+.builder-workflow {
+  overflow: hidden;
+  height: 100%;
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  &__builder {
+    max-width: 100%;
+    width: 60%;
+    padding: 0 80px 40px;
+    height: 100%;
+    flex: 3;
+  }
+
+  &__sidebar {
+    flex: 1;
+    padding: 20px;
+    z-index: 100;
+    box-shadow: 0 0 10px rgba(0, 0, 40, 0.5);
+    min-width: 400px;
+    background-color: #FCFCFC;
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h3 {
+        margin: 0;
+        font-weight: 800;
+      }
+    }
+  }
+
+  &__generated-json {
+    background-color: #efefef;
+    overflow: auto;
+    width: 100%;
+    height: 800px;
+  }
+
+}

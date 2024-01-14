@@ -1,5 +1,6 @@
 <div class="scene-table"
      cdkDrag
+     (cdkDragStarted)="dragStarted()"
      [cdkDragFreeDragPosition]="video.builderConfig ? video.builderConfig.point : {x: 0, y: 0}"
      (cdkDragReleased)="onReleaseVideo()" (cdkDragEnded)="onVideoDragEnd($event)"
      cdkDragBoundary=".builder__canvas">

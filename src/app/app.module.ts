@@ -22,14 +22,17 @@ import { JsonImportDialogComponent } from './components/json-import-dialog/json-
 import {MatDialogModule} from '@angular/material/dialog';
 import {NgJsonEditorModule} from 'ang-jsoneditor';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {MatMenuModule} from "@angular/material/menu";
+import {BuilderWorkflowComponent} from "./pages/builder-workflow/builder-workflow.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     HomeComponent,
+    BuilderWorkflowComponent,
     BuilderComponent,
     SceneTableComponent,
     VideoOptionComponent,
@@ -57,7 +60,9 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
     ClipboardModule,
     MatDialogModule,
     NgJsonEditorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

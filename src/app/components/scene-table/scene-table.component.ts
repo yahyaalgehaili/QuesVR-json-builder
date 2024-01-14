@@ -238,4 +238,8 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
   removeVideo(): void {
     this.onRemoveVideo.emit(this.video);
   }
+
+  dragStarted() {
+    this.goToArrow?.position();
+  }
 }

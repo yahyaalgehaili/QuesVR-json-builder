@@ -6,13 +6,61 @@
 }
 
 html {
-  background-color: #FCFCFC;
+  background-color: var(--neutral-100);
 }
 
 body {
   margin: 0;
   font-family: 'Work Sans', sans-serif;
   font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Outfit", sans-serif;
+  font-weight: 400;
+}
+
+span, p, a, button {
+  font-family: 'Work Sans', sans-serif;
+}
+
+.leader-line {
+  z-index: -1;
+}
+
+.small-icon-button {
+  width: 36px !important;
+  height: 36px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  & > *[role=img] {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .mat-mdc-button-touch-target {
+    width: 36px !important;
+    height: 36px !important;
+  }
+}
+
+.nav-bar__language-menu {
+  min-width: 0 !important;
+
+  .mat-mdc-menu-content {
+    display: flex;
+    flex-direction: column;
+  }
+
 }
 
 /* colors */

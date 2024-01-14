@@ -1,3 +1,17 @@
 {
-
+  "BUILDER": {
+    "ADD": "Add a new video",
+    "CLEAR": "Clear all videos",
+    "CODE": "Open code sidebar",
+    "MENU": "Open video sidebar",
+    "IMPORT": "Import existing JSON structure"
+  },
+  "HOME": {
+    "GET_STARTED": "Get started",
+    "CONTINUE_FROM_SAVE": "Continue from save",
+    "POWERED_BY": "Powered by GreenCircle"
+  },
+  "NAVBAR": {
+    "GETTING_STARTED": "Get started"
+  }
 }

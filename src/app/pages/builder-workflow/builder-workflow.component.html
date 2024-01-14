@@ -1,0 +1,18 @@
+<div class="builder-workflow">
+  <div class="builder-workflow__container">
+    <app-builder [scene]="scene" class="builder-workflow__builder"></app-builder>
+    <div class="builder-workflow__sidebar" *ngIf="sidebarToggled">
+      <div class="builder-workflow__sidebar-header">
+        <h3>json</h3>
+        <button mat-icon-button
+                [cdkCopyToClipboard]="copyJson()"
+                [matTooltip]="'copies Json to clipboard'">
+          <mat-icon>content_copy</mat-icon>
+        </button>
+      </div>
+      <pre class="builder-workflow__generated-json">
+        {{scene | json}}
+      </pre>
+    </div>
+  </div>
+</div>
