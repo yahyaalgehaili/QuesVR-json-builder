@@ -13,6 +13,13 @@
               class="builder__add-button small-icon-button"
               [matTooltip]="'BUILDER.ADD' | translate"
               [color]="'primary'"
+              (click)="panBackToStart()">
+        <mat-icon>home</mat-icon>
+      </button>
+      <button mat-icon-button
+              class="builder__add-button small-icon-button"
+              [matTooltip]="'BUILDER.ADD' | translate"
+              [color]="'primary'"
               (click)="addVideo()">
         <mat-icon>add</mat-icon>
       </button>
@@ -41,14 +48,18 @@
     </div>
   </div>
   <div class="builder__canvas-container" (scroll)="scrollStart()">
-    <div class="builder__canvas" *ngIf="scene.videos">
-      @for (video of scene.videos; track video.id) {
-        <div class="builder__table">
-          <app-scene-table [video]="video" (onRemoveVideo)="removeVideo($event)">
-          </app-scene-table>
+    @if(panzoomConfig) {
+      <pan-zoom [config]="panzoomConfig" >
+        <div class="builder__canvas" *ngIf="scene.videos">
+          @for (video of scene.videos; track video.id) {
+            <div class="builder__table">
+              <app-scene-table [video]="video" (onRemoveVideo)="removeVideo($event)">
+              </app-scene-table>
+            </div>
+          }
         </div>
-      }
-    </div>
+      </pan-zoom>
+    }
   </div>
 </div>
 

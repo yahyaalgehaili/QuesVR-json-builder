@@ -11,14 +11,14 @@ import {SceneTableComponent} from './components/scene-table/scene-table.componen
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
-import { VideoOptionComponent } from './components/video-option/video-option.component';
+import {VideoOptionComponent} from './components/video-option/video-option.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import {ClipboardModule} from '@angular/cdk/clipboard';
-import { JsonImportDialogComponent } from './components/json-import-dialog/json-import-dialog.component';
+import {JsonImportDialogComponent} from './components/json-import-dialog/json-import-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {NgJsonEditorModule} from 'ang-jsoneditor';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
@@ -26,6 +26,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {MatMenuModule} from "@angular/material/menu";
 import {BuilderWorkflowComponent} from "./pages/builder-workflow/builder-workflow.component";
+import {PanZoomComponent} from "ngx-panzoom";
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {BuilderWorkflowComponent} from "./pages/builder-workflow/builder-workflo
     NgJsonEditorModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatMenuModule
+    MatMenuModule,
+    PanZoomComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

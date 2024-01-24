@@ -36,9 +36,14 @@
     min-width: 100%;
     min-height: 100%;
     width: 4000px;
+    border: 1px dashed var(--neutral-400);
 
     &-container {
-      position: relative;
+      position: absolute;
+      top: 68px;
+      bottom: 0;
+      left: 0;
+      right: 0;
       width: 100%;
       overflow: scroll;
 

@@ -3,12 +3,12 @@
     "ADD": "Voeg een nieuwe video toe",
     "CLEAR": "Verwijder alle videos",
     "CODE": "Open de code sidebar",
-    "MENU": "Open de video sidebar",
-    "IMPORT": "Importeer een bestaande JSON structuur"
+    "IMPORT": "Importeer een bestaande JSON structuur",
+    "MENU": "Open de video sidebar"
   },
   "HOME": {
-    "GET_STARTED": "Begin nu",
     "CONTINUE_FROM_SAVE": "Ga verder vanuit import",
+    "GET_STARTED": "Begin nu",
     "POWERED_BY": "Powered by GreenCircle"
   },
   "NAVBAR": {

@@ -3,12 +3,12 @@
     "ADD": "Add a new video",
     "CLEAR": "Clear all videos",
     "CODE": "Open code sidebar",
-    "MENU": "Open video sidebar",
-    "IMPORT": "Import existing JSON structure"
+    "IMPORT": "Import existing JSON structure",
+    "MENU": "Open video sidebar"
   },
   "HOME": {
-    "GET_STARTED": "Get started",
     "CONTINUE_FROM_SAVE": "Continue from save",
+    "GET_STARTED": "Get started",
     "POWERED_BY": "Powered by GreenCircle"
   },
   "NAVBAR": {
