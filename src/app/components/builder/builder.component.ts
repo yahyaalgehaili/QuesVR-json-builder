@@ -4,7 +4,7 @@ import {ArrowDragService} from '../../services/arrow-drag.service';
 import {MatDialog} from '@angular/material/dialog';
 import {JsonImportDialogComponent} from '../json-import-dialog/json-import-dialog.component';
 import {PanZoomAPI, PanZoomConfig, PanZoomConfigOptions, PanZoomModel, Rect} from "ngx-panzoom";
-import {Subscription} from "rxjs";
+import {sampleTime, Subscription, tap} from "rxjs";
 import {cloneDeep} from "lodash";
 
 @Component({
@@ -56,18 +56,22 @@ export class BuilderComponent implements OnInit, OnDestroy {
         this.panZoomAPI = api
       }
     );
-    this.modelChangedSubscription = this.panzoomConfig.modelChanged.subscribe(
-      (model: PanZoomModel) => {
+    this.modelChangedSubscription = this.panzoomConfig.modelChanged.pipe(
+      tap((model: PanZoomModel) => {
         if (!model.isPanning) {
           // also do this based on time via a pipe
           this.draggingArrowService.updatedTables$.next(true);
-
           this.panIntoBounds(model);
         }
-
         this.onModelChanged(model)
-      }
-    );
+      }),
+      sampleTime(30),
+      tap((model: PanZoomModel) => {
+        if (model.isPanning) {
+          this.draggingArrowService.updatedTables$.next(true);
+        }
+      })
+    ).subscribe();
     this.changeDetector.detectChanges()
   }
 
@@ -77,10 +81,20 @@ export class BuilderComponent implements OnInit, OnDestroy {
   }
 
   panIntoBounds(model: PanZoomModel) {
-    console.log(model);
+    console.log(model.pan);
     const bounds = {
       x: {min: -3500, max: 0},
       y: {min: -2000, max: 0}
+    }
+
+    if (
+      model.pan.x > (bounds.x.max + 500) ||
+      model.pan.x < (bounds.x.min - 500) ||
+      model.pan.y > (bounds.y.max + 500) ||
+      model.pan.y < (bounds.y.min - 500)
+    ) {
+      this.panBackToStart();
+      return;
     }
 
     let panXValue = 0;

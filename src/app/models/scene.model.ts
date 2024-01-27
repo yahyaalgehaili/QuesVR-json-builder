@@ -39,5 +39,5 @@ export interface QuestionModel {
 
 export interface OptionModel {
   title: string;
-  gotoId: number;
+  gotoId?: number | null;
 }

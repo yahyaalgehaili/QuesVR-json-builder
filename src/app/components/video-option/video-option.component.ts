@@ -142,8 +142,8 @@ export class VideoOptionComponent implements OnInit, AfterViewInit, OnDestroy {
     this.arrowLocation = {x: 0, y: 0};
   }
 
-  private initArrow() {
-    if (this.option.gotoId >= 0) {
+  private initArrow(): void {
+    if (this.option?.gotoId && this.option?.gotoId >= 0) {
       const goToTemplate: HTMLElement | null = document.getElementById(`videoId${this.option.gotoId}`);
 
       if (goToTemplate) {

@@ -22,9 +22,9 @@ export class BuilderWorkflowComponent {
             startAppearance: 10,
             endAppearance: 50,
             options: [
-              {title: 'left', gotoId: 0},
-              {title: 'right', gotoId: 0},
-              {title: 'up', gotoId: 0}
+              {title: 'left', gotoId: null},
+              {title: 'right', gotoId: null},
+              {title: 'up', gotoId: null}
             ]
           },
         ],

@@ -7,6 +7,12 @@
   position: relative;
   padding: 2rem 0;
 
+  ::ng-deep .pan-element {
+    background-image: radial-gradient(var(--neutral-200) 1px, transparent 0);
+    background-size: 60px 60px;
+    background-position: -29px -29px;
+  }
+
   &:before {
     content: "";
     position: absolute;
