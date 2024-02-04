@@ -1,0 +1,43 @@
+<div class="builder__toolbar">
+  <div>
+    <button mat-icon-button
+            class="small-icon-button"
+            [matTooltip]="'BUILDER.MENU' | translate"
+            [color]="'primary'"
+            (click)="clickVideoDrawer.emit(true)">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <button mat-icon-button
+            class="small-icon-button"
+            [matTooltip]="'BUILDER.ADD' | translate"
+            [color]="'primary'"
+            (click)="clickHome.emit(true)">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button
+            class="small-icon-button"
+            [matTooltip]="'BUILDER.ADD' | translate"
+            [color]="'primary'"
+            (click)="clickAdd.emit(true)">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button
+            class="small-icon-button"
+            [matTooltip]="'BUILDER.CLEAR' | translate"
+            [color]="'primary'"
+            (click)="clickClear.emit(true)">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+  <div>
+    <button mat-icon-button
+            class="small-icon-button"
+            [matTooltip]="'BUILDER.CODE' | translate"
+            [color]="'primary'"
+            (click)="clickCode.emit(true)">
+      <mat-icon>code</mat-icon>
+    </button>
+  </div>
+</div>

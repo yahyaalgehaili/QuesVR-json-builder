@@ -17,7 +17,9 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() boundaryElement: string;
 
-  @Output() onRemoveVideo: EventEmitter<VideoModel> = new EventEmitter<VideoModel>()
+  @Output() onRemoveVideo: EventEmitter<VideoModel> = new EventEmitter<VideoModel>();
+
+  @Output() onUpdate: EventEmitter<VideoModel> = new EventEmitter<VideoModel>();
 
   DraggingArrow$: Observable<boolean>
 
@@ -89,6 +91,7 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onReleaseVideo(): void {
+    this.onUpdate.emit(this.video);
     this.updateArrows();
   }
 
@@ -118,6 +121,7 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
   removeOption(questionId: number, optionId: number): void {
     this.video.questions[questionId].options.splice(optionId, 1);
     setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);
+    this.onUpdate.emit(this.video);
   }
 
   addOption(questionId: number): void {
@@ -127,6 +131,7 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
     })
 
     setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);
+    this.onUpdate.emit(this.video);
   }
 
   addQuestion(): void {
@@ -137,11 +142,13 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
       endAppearance: -1.0
     })
     setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);
+    this.onUpdate.emit(this.video);
   }
 
   removeQuestion(questionId: number): void {
     this.video.questions.splice(questionId, 1);
     setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);
+    this.onUpdate.emit(this.video);
   }
 
   getVideoFormatIcon(videoFormat: VIDEO_FORMATS): string {
@@ -177,6 +184,7 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
     );
 
     this.createNextVideoArrow(goToId, this.nextVideoElement);
+    this.onUpdate.emit(this.video);
   }
 
   createNextVideoArrow(nextVideoId: number, nextVideoElement: HTMLElement): void {

@@ -7,7 +7,7 @@
   <div class="scene-table__header">
     <span class="scene-table__id">{{video.id}}</span>
     <span class="scene-table__location">
-      <input class="scene-table__location-input" placeholder="video path..." [(ngModel)]="video.fileName">
+      <input class="scene-table__location-input" placeholder="video path..." [(ngModel)]="video.fileName" (ngModelChange)="this.onUpdate.emit(this.video)">
     </span>
     <span class="scene-table__video-format">
       <mat-select class="scene-table__video-format-select" [(ngModel)]="video.videoFormat"
@@ -41,7 +41,7 @@
        *ngFor="let question of video.questions; let questionId = index">
     <div class="scene-table__question">
       <div class="scene-table__question-title-top">
-        <input class="scene-table__question-title" placeholder="question to ask..." [(ngModel)]="question.title">
+        <input class="scene-table__question-title" placeholder="question to ask..." [(ngModel)]="question.title" (ngModelChange)="this.onUpdate.emit(this.video)">
         <button mat-icon-button (click)="removeQuestion(questionId)" [matTooltip]="'remove question'">
           <mat-icon>close</mat-icon>
         </button>
@@ -49,10 +49,10 @@
       <div class="scene-table__question-title-bottom">
         <div class="scene-table__question-timestamp">
           <mat-icon [matTooltip]="'show question at timestamps...'">schedule</mat-icon>
-          <input type="number" min="-1" step="1" placeholder="start" [(ngModel)]="question.startAppearance"
+          <input type="number" min="-1" step="1" placeholder="start" [(ngModel)]="question.startAppearance" (ngModelChange)="this.onUpdate.emit(this.video)"
                  class="scene-table__question-timestamp-input">
           -
-          <input type="number" min="-1" step="1" placeholder="end" [(ngModel)]="question.endAppearance"
+          <input type="number" min="-1" step="1" placeholder="end" [(ngModel)]="question.endAppearance" (ngModelChange)="this.onUpdate.emit(this.video)"
                  class="scene-table__question-timestamp-input">
         </div>
       </div>
@@ -63,7 +63,7 @@
                         class="scene-table__answer"
                         [id]="'video' + video.id + 'question' + questionId + 'answer' + i"
                         [optionElementId]="'video' + video.id + 'question' + questionId + 'answer' + i"
-                        [option]="option" (onRemove)="removeOption(questionId, i)">
+                        [option]="option" (onRemove)="removeOption(questionId, i)" (optionChange)="this.onUpdate.emit(this.video)">
       </app-video-option>
       <button mat-flat-button
               class="scene-table__add-option"

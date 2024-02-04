@@ -23,7 +23,10 @@ export class VideoOptionComponent implements OnInit, AfterViewInit, OnDestroy {
   optionElementId: string;
 
   @Output()
-  onRemove: EventEmitter<boolean> = new EventEmitter<boolean>()
+  onRemove: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  @Output()
+  optionChange: EventEmitter<OptionModel> = new EventEmitter<OptionModel>();
 
   goToElement: HTMLElement;
 
@@ -79,6 +82,7 @@ export class VideoOptionComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.draggingArrowService.setDraggingArrow(false);
     this.resetArrowLocation();
+    this.optionChange.emit(this.option);
   }
 
   private createGoToVideoArrow(gotoId: number, goToTemplate: HTMLElement | null): void {

@@ -18,7 +18,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import {ClipboardModule} from '@angular/cdk/clipboard';
-import {JsonImportDialogComponent} from './components/json-import-dialog/json-import-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {NgJsonEditorModule} from 'ang-jsoneditor';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
@@ -27,6 +26,7 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {MatMenuModule} from "@angular/material/menu";
 import {BuilderWorkflowComponent} from "./pages/builder-workflow/builder-workflow.component";
 import {PanZoomComponent} from "ngx-panzoom";
+import {BuilderToolbarComponent} from "./components/builder-toolbar/builder-toolbar.component";
 
 @NgModule({
   declarations: [
@@ -36,36 +36,36 @@ import {PanZoomComponent} from "ngx-panzoom";
     BuilderWorkflowComponent,
     BuilderComponent,
     SceneTableComponent,
-    VideoOptionComponent,
-    JsonImportDialogComponent
+    VideoOptionComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgOptimizedImage,
-    DragDropModule,
-    BrowserAnimationsModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    MatIconModule,
-    MatSidenavModule,
-    FormsModule,
-    MatButtonModule,
-    MatTooltipModule,
-    MatSelectModule,
-    ClipboardModule,
-    MatDialogModule,
-    NgJsonEditorModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatMenuModule,
-    PanZoomComponent
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgOptimizedImage,
+        DragDropModule,
+        BrowserAnimationsModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        MatIconModule,
+        MatSidenavModule,
+        FormsModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatSelectModule,
+        ClipboardModule,
+        MatDialogModule,
+        NgJsonEditorModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MatMenuModule,
+        PanZoomComponent,
+        BuilderToolbarComponent
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

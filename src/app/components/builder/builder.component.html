@@ -1,65 +1,55 @@
 <div class="builder">
-  <div class="builder__toolbar">
-    <div>
-      <button mat-icon-button
-              class="builder__add-button small-icon-button"
-              [matTooltip]="'BUILDER.MENU' | translate"
-              [color]="'primary'">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
-    <div>
-      <button mat-icon-button
-              class="builder__add-button small-icon-button"
-              [matTooltip]="'BUILDER.ADD' | translate"
-              [color]="'primary'"
-              (click)="panBackToStart()">
-        <mat-icon>home</mat-icon>
-      </button>
-      <button mat-icon-button
-              class="builder__add-button small-icon-button"
-              [matTooltip]="'BUILDER.ADD' | translate"
-              [color]="'primary'"
-              (click)="addVideo()">
-        <mat-icon>add</mat-icon>
-      </button>
-      <button mat-icon-button
-              class="builder__add-button small-icon-button"
-              [matTooltip]="'BUILDER.CLEAR' | translate"
-              [color]="'primary'"
-              (click)="clearScene()">
-        <mat-icon>clear</mat-icon>
-      </button>
-      <button mat-icon-button
-              class="builder__add-button small-icon-button"
-              [matTooltip]="'BUILDER.IMPORT' | translate"
-              [color]="'primary'"
-              (click)="openImportDialog()">
-        <mat-icon>publish</mat-icon>
-      </button>
-    </div>
-    <div>
-      <button mat-icon-button
-              class="builder__add-button small-icon-button"
-              [matTooltip]="'BUILDER.CODE' | translate"
-              [color]="'primary'">
-        <mat-icon>code</mat-icon>
-      </button>
-    </div>
-  </div>
-  <div class="builder__canvas-container" (scroll)="scrollStart()">
+  <app-builder-toolbar
+    (clickVideoDrawer)="videoDrawer.toggle()"
+    (clickHome)="panBackToStart()"
+    (clickAdd)="sceneAction('add')"
+    (clickClear)="sceneAction('clear')"
+    (clickCode)="codeDrawer.toggle()">
+  </app-builder-toolbar>
+  <mat-drawer-container class="builder__canvas-container" autosize>
+    <mat-drawer #videoDrawer
+                class="builder__video-drawer"
+                mode="side"
+                (closedStart)="updateBuilder('start')"
+                (openedStart)="updateBuilder('start')"
+                (openedChange)="updateBuilder('end')">
+      <div class="builder__video-drawer-header">
+        <h2>{{'BUILDER.VIDEO_SLIDER.HEADER' | translate}}</h2>
+        <button mat-icon-button
+                class="builder__add-button small-icon-button"
+                [matTooltip]="'BUILDER.VIDEO_SLIDER.ADD_VIDEO' | translate"
+                [color]="'primary'">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </mat-drawer>
+
     @if(panzoomConfig) {
       <pan-zoom [config]="panzoomConfig" >
         <div class="builder__canvas" *ngIf="scene.videos">
           @for (video of scene.videos; track video.id) {
             <div class="builder__table">
-              <app-scene-table [video]="video" (onRemoveVideo)="removeVideo($event)">
+              <app-scene-table [video]="video" (onUpdate)="sceneAction('update')" (onRemoveVideo)="sceneAction('remove', $event)">
               </app-scene-table>
             </div>
           }
         </div>
       </pan-zoom>
     }
-  </div>
+
+    <mat-drawer #codeDrawer class="builder__video-drawer" [position]="'end'" mode="side">
+      <div class="builder__video-drawer-header">
+        <h2>{{'BUILDER.CODE_SLIDER.HEADER' | translate}}</h2>
+      </div>
+      <div class="builder__video-drawer-content">
+        <json-editor
+          *ngIf="editorOptions"
+          [options]="editorOptions"
+          [data]="jsonScene">
+        </json-editor>
+      </div>
+    </mat-drawer>
+  </mat-drawer-container>
+
 </div>
 

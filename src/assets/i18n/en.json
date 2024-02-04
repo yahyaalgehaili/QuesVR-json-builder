@@ -3,8 +3,15 @@
     "ADD": "Add a new video",
     "CLEAR": "Clear all videos",
     "CODE": "Open code sidebar",
+    "CODE_SLIDER": {
+      "HEADER": "Json preview"
+    },
     "IMPORT": "Import existing JSON structure",
-    "MENU": "Open video sidebar"
+    "MENU": "Open video sidebar",
+    "VIDEO_SLIDER": {
+      "ADD_VIDEO": "Add video",
+      "HEADER": "Videos"
+    }
   },
   "HOME": {
     "CONTINUE_FROM_SAVE": "Continue from save",

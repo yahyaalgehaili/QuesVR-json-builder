@@ -1,11 +1,11 @@
-import {ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Scene, VIDEO_FORMATS, VideoModel} from '../../models/scene.model';
 import {ArrowDragService} from '../../services/arrow-drag.service';
 import {MatDialog} from '@angular/material/dialog';
-import {JsonImportDialogComponent} from '../json-import-dialog/json-import-dialog.component';
-import {PanZoomAPI, PanZoomConfig, PanZoomConfigOptions, PanZoomModel, Rect} from "ngx-panzoom";
-import {sampleTime, Subscription, tap} from "rxjs";
+import {PanZoomAPI, PanZoomConfig, PanZoomConfigOptions, PanZoomModel} from "ngx-panzoom";
+import {interval, sampleTime, Subscription, tap} from "rxjs";
 import {cloneDeep} from "lodash";
+import {JsonEditorOptions} from "ang-jsoneditor";
 
 @Component({
   selector: 'app-builder',
@@ -13,6 +13,15 @@ import {cloneDeep} from "lodash";
   styleUrls: ['./builder.component.scss'],
 })
 export class BuilderComponent implements OnInit, OnDestroy {
+
+  editorOptions: JsonEditorOptions;
+
+  drawerOpenedInterval: Subscription;
+
+  panzoomConfig: PanZoomConfig;
+  panzoomModel: PanZoomModel;
+  initialZoomHeight: number; // set in resetZoomToFit()
+  scale: number;
 
   private panZoomConfigOptions: PanZoomConfigOptions = {
     zoomLevels: 4,
@@ -25,15 +34,11 @@ export class BuilderComponent implements OnInit, OnDestroy {
     initialPanY: 0,
     keepInBoundsDragPullback: 100,
   };
-  panzoomConfig: PanZoomConfig;
   private panZoomAPI: PanZoomAPI;
   private apiSubscription: Subscription;
-  panzoomModel: PanZoomModel;
   private modelChangedSubscription: Subscription;
-  canvasWidth = 4000;
-  initialZoomHeight: number; // set in resetZoomToFit()
-  initialZoomWidth = this.canvasWidth;
-  scale: number;
+
+  jsonScene: Scene;
 
   @Input()
   scene: Scene;
@@ -41,11 +46,11 @@ export class BuilderComponent implements OnInit, OnDestroy {
   constructor(
     private draggingArrowService: ArrowDragService,
     public dialog: MatDialog,
-    private el: ElementRef,
     private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this.jsonScene = cloneDeep(this.scene);
     this.panzoomConfig = this.initPanzoomConfig();
     this.initialZoomHeight = this.panzoomConfig.initialZoomToFit?.height;
     this.scale = this.getCssScale(this.panzoomConfig.initialZoomLevel)
@@ -56,6 +61,7 @@ export class BuilderComponent implements OnInit, OnDestroy {
         this.panZoomAPI = api
       }
     );
+
     this.modelChangedSubscription = this.panzoomConfig.modelChanged.pipe(
       tap((model: PanZoomModel) => {
         if (!model.isPanning) {
@@ -72,7 +78,9 @@ export class BuilderComponent implements OnInit, OnDestroy {
         }
       })
     ).subscribe();
-    this.changeDetector.detectChanges()
+
+    this.changeDetector.detectChanges();
+    this.initJsonViewer();
   }
 
   ngOnDestroy(): void {
@@ -80,8 +88,74 @@ export class BuilderComponent implements OnInit, OnDestroy {
     this.apiSubscription.unsubscribe();
   }
 
+  sceneAction(action: 'add' | 'clear' | 'remove' | 'move' | 'update', video?: VideoModel): void {
+    switch (action) {
+      case "add":
+        this.addVideo();
+        break;
+      case "clear":
+        this.clearScene();
+        break;
+      case "remove":
+        video ? this.removeVideo(video) : null;
+        break;
+      case "update":
+      case "move":
+        break;
+    }
+    setTimeout(() => this.jsonScene = cloneDeep(this.scene), 100);
+
+  }
+
+  addVideo(): void {
+    const newVideo: VideoModel = {
+      id: this.findLowestId(),
+      videoFormat: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
+      fileName: '',
+      questions: [],
+      builderConfig: {
+        point: {
+          x: 0,
+          y: 0
+        }
+      }
+    }
+
+    this.scene.videos.push(newVideo);
+  }
+
+  removeVideo(video: VideoModel) {
+    this.draggingArrowService.removeArrowsWithTargetId(`videoId${video.id}`)
+
+    setTimeout(() => {
+      this.scene.videos.splice(
+        this.scene.videos.findIndex((v: VideoModel): boolean => v.id === video.id),
+        1)
+      setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);
+    }, 100)
+
+  }
+
+  clearScene() {
+    this.scene = {
+      name: 'test scene',
+      id: 1,
+      videos: []
+    }
+
+    setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);
+  }
+
+  updateBuilder(action: 'start' | 'end') {
+    this.drawerOpenedInterval?.unsubscribe();
+    if (action === "start") {
+      this.drawerOpenedInterval = interval(30).subscribe(() => this.draggingArrowService.updatedTables$.next(true));
+    } else {
+      this.draggingArrowService.updatedTables$.next(true);
+    }
+  }
+
   panIntoBounds(model: PanZoomModel) {
-    console.log(model.pan);
     const bounds = {
       x: {min: -3500, max: 0},
       y: {min: -2000, max: 0}
@@ -117,14 +191,17 @@ export class BuilderComponent implements OnInit, OnDestroy {
     }
   }
 
+  panBackToStart() {
+    this.panZoomAPI.resetView();
+  }
+
   private initPanzoomConfig(): PanZoomConfig {
     return {
       ...new PanZoomConfig(this.panZoomConfigOptions),
-      // initialZoomToFit: this.getInitialZoomToFit()
     };
   }
 
-  onModelChanged(model: PanZoomModel): void {
+  private onModelChanged(model: PanZoomModel): void {
     this.panzoomModel = cloneDeep(model);
     this.scale = this.getCssScale(this.panzoomModel.zoomLevel);
     this.changeDetector.markForCheck();
@@ -135,39 +212,15 @@ export class BuilderComponent implements OnInit, OnDestroy {
     return Math.pow(this.panzoomConfig.scalePerZoomLevel, zoomLevel - this.panzoomConfig.neutralZoomLevel);
   }
 
-  getInitialZoomToFit(): Rect {
-    const width = this.el.nativeElement.clientWidth;
-    const height = this.canvasWidth * this.el.nativeElement.clientHeight / width;
-    return {
-      x: 0,
-      y: 0,
-      width: this.canvasWidth,
-      height
-    };
+  private initJsonViewer() {
+    this.editorOptions = new JsonEditorOptions();
+    this.editorOptions.mode = 'view'
+    this.editorOptions.modes = ['view'];
+    this.editorOptions.mainMenuBar = true;
+    this.editorOptions.expandAll = true;
   }
 
-  scrollStart(): void {
-    this.draggingArrowService.updatedTables$.next(true);
-  }
-
-  addVideo(): void {
-    const newVideo: VideoModel = {
-      id: this.findLowestId(),
-      videoFormat: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
-      fileName: '',
-      questions: [],
-      builderConfig: {
-        point: {
-          x: 0,
-          y: 0
-        }
-      }
-    }
-
-    this.scene.videos.push(newVideo);
-  }
-
-  findLowestId(): number {
+  private findLowestId(): number {
     if (this.scene.videos.length === 0) {
       return 0;
     }
@@ -176,41 +229,5 @@ export class BuilderComponent implements OnInit, OnDestroy {
     const highestId: number = sortedScenes.length > 0 ? sortedScenes[sortedScenes.length - 1]?.id : 0;
 
     return highestId + 1;
-  }
-
-  removeVideo(video: VideoModel) {
-    this.draggingArrowService.removeArrowsWithTargetId(`videoId${video.id}`)
-
-    setTimeout(() => {
-      this.scene.videos.splice(
-        this.scene.videos.findIndex((v: VideoModel): boolean => v.id === video.id),
-        1)
-      setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);
-    }, 100)
-
-  }
-
-  clearScene() {
-    this.scene = {
-      name: 'test scene',
-      id: 1,
-      videos: []
-    }
-
-    setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);
-  }
-
-  openImportDialog(): void {
-    const dialogRef = this.dialog.open(JsonImportDialogComponent, {
-      minWidth: 700
-    });
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      this.scene = result
-    })
-  }
-
-  panBackToStart() {
-    this.panZoomAPI.resetView();
   }
 }

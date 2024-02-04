@@ -3,8 +3,15 @@
     "ADD": "Voeg een nieuwe video toe",
     "CLEAR": "Verwijder alle videos",
     "CODE": "Open de code sidebar",
+    "CODE_SLIDER": {
+      "HEADER": "Json preview"
+    },
     "IMPORT": "Importeer een bestaande JSON structuur",
-    "MENU": "Open de video sidebar"
+    "MENU": "Open de video sidebar",
+    "VIDEO_SLIDER": {
+      "ADD_VIDEO": "Voeg video toe",
+      "HEADER": "Videos"
+    }
   },
   "HOME": {
     "CONTINUE_FROM_SAVE": "Ga verder vanuit import",
