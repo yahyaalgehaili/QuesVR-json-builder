@@ -40,6 +40,14 @@
     <mat-drawer #codeDrawer class="builder__video-drawer" [position]="'end'" mode="side">
       <div class="builder__video-drawer-header">
         <h2>{{'BUILDER.CODE_SLIDER.HEADER' | translate}}</h2>
+        <div class="builder__video-drawer-header-actions">
+          <button mat-icon-button (click)="downloadScene()">
+            <mat-icon>download</mat-icon>
+          </button>
+          <button mat-icon-button [cdkCopyToClipboard]="sceneToString()" (click)="copyScene()">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+        </div>
       </div>
       <div class="builder__video-drawer-content">
         <json-editor

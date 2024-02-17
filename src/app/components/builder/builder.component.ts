@@ -6,6 +6,8 @@ import {PanZoomAPI, PanZoomConfig, PanZoomConfigOptions, PanZoomModel} from "ngx
 import {interval, sampleTime, Subscription, tap} from "rxjs";
 import {cloneDeep} from "lodash";
 import {JsonEditorOptions} from "ang-jsoneditor";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-builder',
@@ -46,7 +48,9 @@ export class BuilderComponent implements OnInit, OnDestroy {
   constructor(
     private draggingArrowService: ArrowDragService,
     public dialog: MatDialog,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private snackbar: MatSnackBar,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -229,5 +233,27 @@ export class BuilderComponent implements OnInit, OnDestroy {
     const highestId: number = sortedScenes.length > 0 ? sortedScenes[sortedScenes.length - 1]?.id : 0;
 
     return highestId + 1;
+  }
+
+  public downloadScene(): void {
+    const json = JSON.stringify(this.scene);
+    const uri = "data:text/json;charset=UTF-8," + encodeURIComponent(json);
+
+    const element = document.createElement('a');
+    element.setAttribute('href', uri);
+    element.setAttribute('download', 'story.json');
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+
+  }
+
+  public sceneToString(): string {
+    return JSON.stringify(this.scene);
+  }
+
+  public copyScene(): void {
+    this.snackbar.open(this.translate.instant('BUILDER.COPY_SCENE'), undefined, {duration: 2000})
   }
 }

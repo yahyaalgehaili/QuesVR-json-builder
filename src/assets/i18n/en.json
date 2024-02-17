@@ -6,6 +6,7 @@
     "CODE_SLIDER": {
       "HEADER": "Json preview"
     },
+    "COPY_SCENE": "Succesfully copied the scene's json code.",
     "IMPORT": "Import existing JSON structure",
     "MENU": "Open video sidebar",
     "VIDEO_SLIDER": {
