@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Scene, VIDEO_FORMATS} from "../../models/scene.model";
+import {WizardStepList} from "../../components/wizard-steps/wizard-steps.component";
 
 @Component({
   selector: 'app-builder-workflow',
@@ -7,6 +8,36 @@ import {Scene, VIDEO_FORMATS} from "../../models/scene.model";
   styleUrl: './builder-workflow.component.scss'
 })
 export class BuilderWorkflowComponent {
+
+  workflowSteps: WizardStepList = {
+    activeStep: 0,
+    steps: [
+      {
+        id: 'details',
+        invalid: false,
+        label: 'details',
+        visited: false,
+      },
+      {
+        id: 'videos',
+        invalid: false,
+        label: 'videos',
+        visited: false,
+      },
+      {
+        id: 'editor',
+        invalid: false,
+        label: 'editor',
+        visited: false,
+      },
+      {
+        id: 'preview',
+        invalid: false,
+        label: 'preview',
+        visited: false,
+      },
+    ]
+  }
 
   scene: Scene = {
     name: 'test scene',
@@ -90,13 +121,5 @@ export class BuilderWorkflowComponent {
     ]
   }
 
-  sidebarToggled = false;
 
-  toggleSideBar() {
-    this.sidebarToggled = !this.sidebarToggled
-  }
-
-  copyJson(): string {
-    return JSON.stringify(this.scene)
-  }
 }

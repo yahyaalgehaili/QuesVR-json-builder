@@ -1,0 +1,88 @@
+.wizard-steps {
+  display: flex;
+  align-items: baseline;
+
+  &__arrow {
+    z-index: 2;
+  }
+
+  &-container {
+    display: flex;
+    align-items: center;
+    margin: 0 -50px;
+  }
+
+  &__step {
+    width: 150px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+
+    &:not(:last-child)::after {
+      content: '';
+      width: 100%;
+      height: 3px;
+      background-color: var(--neutral-200);
+      position: absolute;
+      left: 50%;
+      top: 10px;
+    }
+
+    &--active {
+      .wizard-steps__step-icon {
+        background-color: var(--primary-500);
+      }
+
+      .wizard-steps__step-label {
+        font-weight: 600;
+      }
+    }
+
+    &--invalid {
+      .wizard-steps__step-icon {
+        background-color: red;
+      }
+    }
+
+    &--done {
+      .wizard-steps__step-icon {
+        background-color: green !important;
+      }
+
+      &::after {
+        content: '';
+        width: 100%;
+        height: 3px;
+        background-color: var(--primary-400) !important;
+        position: absolute;
+        left: 50%;
+        top: 10px;
+      }
+    }
+  }
+
+  &__step-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--neutral-500);
+    aspect-ratio: 1/1;
+    height: 24px;
+    border-radius: 50%;
+    color: var(--neutral-100);
+    z-index: 1;
+    cursor: pointer;
+
+    .mat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &__step-label {
+    cursor: pointer;
+    margin-top: 8px;
+  }
+}

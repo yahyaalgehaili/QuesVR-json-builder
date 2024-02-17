@@ -27,6 +27,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {BuilderWorkflowComponent} from "./pages/builder-workflow/builder-workflow.component";
 import {PanZoomComponent} from "ngx-panzoom";
 import {BuilderToolbarComponent} from "./components/builder-toolbar/builder-toolbar.component";
+import {WizardStepsComponent} from "./components/wizard-steps/wizard-steps.component";
 
 @NgModule({
   declarations: [
@@ -38,34 +39,35 @@ import {BuilderToolbarComponent} from "./components/builder-toolbar/builder-tool
     SceneTableComponent,
     VideoOptionComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        NgOptimizedImage,
-        DragDropModule,
-        BrowserAnimationsModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
-        MatIconModule,
-        MatSidenavModule,
-        FormsModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatSelectModule,
-        ClipboardModule,
-        MatDialogModule,
-        NgJsonEditorModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        MatMenuModule,
-        PanZoomComponent,
-        BuilderToolbarComponent
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgOptimizedImage,
+    DragDropModule,
+    BrowserAnimationsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    MatIconModule,
+    MatSidenavModule,
+    FormsModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatSelectModule,
+    ClipboardModule,
+    MatDialogModule,
+    NgJsonEditorModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatMenuModule,
+    PanZoomComponent,
+    BuilderToolbarComponent,
+    WizardStepsComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

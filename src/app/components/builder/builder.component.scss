@@ -21,8 +21,8 @@
     right: 0;
     left: 0;
     bottom: 2rem;
-    box-shadow: inset 1px 1px 4px 0 rgba(0, 0, 0, .4);
-    outline: var(--neutral-100) solid 100px;
+    border: 1px var(--neutral-200) solid;
+    outline: var(--neutral-100) solid 500px;
     z-index: 3;
   }
 

@@ -1,18 +1,26 @@
 <div class="builder-workflow">
+  <div class="builder-workflow__top-bar">
+    <app-wizard-steps class="builder-workflow__steps" [workflowSteps]="workflowSteps"></app-wizard-steps>
+  </div>
   <div class="builder-workflow__container">
-    <app-builder [scene]="scene" class="builder-workflow__builder"></app-builder>
-    <div class="builder-workflow__sidebar" *ngIf="sidebarToggled">
-      <div class="builder-workflow__sidebar-header">
-        <h3>json</h3>
-        <button mat-icon-button
-                [cdkCopyToClipboard]="copyJson()"
-                [matTooltip]="'copies Json to clipboard'">
-          <mat-icon>content_copy</mat-icon>
-        </button>
-      </div>
-      <pre class="builder-workflow__generated-json">
-        {{scene | json}}
-      </pre>
-    </div>
+    @switch (workflowSteps.activeStep) {
+      @case(0) {
+        <div>details</div>
+      }
+      @case(1) {
+        <div>videos</div>
+      }
+      @case(2) {
+        <app-builder [scene]="scene" class="builder-workflow__builder"></app-builder>
+      }
+      @case(3) {
+        <div>preview</div>
+      }
+    }
+
+  </div>
+  <div class="builder-workflow__actions">
+    <button mat-stroked-button color="primary">previous</button>
+    <button mat-flat-button color="primary">continue</button>
   </div>
 </div>
