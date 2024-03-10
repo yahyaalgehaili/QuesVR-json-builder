@@ -1,11 +1,13 @@
 <div class="builder-workflow">
   <div class="builder-workflow__top-bar">
-    <app-wizard-steps class="builder-workflow__steps" [workflowSteps]="workflowSteps"></app-wizard-steps>
+    <app-wizard-steps class="builder-workflow__steps" [workflowSteps]="workflowSteps" (navigation)="switchStep($event)"></app-wizard-steps>
   </div>
   <div class="builder-workflow__container">
     @switch (workflowSteps.activeStep) {
       @case(0) {
-        <div>details</div>
+        <div></div>
+        <app-details-form [details]="details" [nextEvent]="nextStepObservable" (results)="setDetails($event)"></app-details-form>
+        <div></div>
       }
       @case(1) {
         <div>videos</div>
@@ -20,7 +22,15 @@
 
   </div>
   <div class="builder-workflow__actions">
-    <button mat-stroked-button color="primary">previous</button>
-    <button mat-flat-button color="primary">continue</button>
+    <button mat-flat-button
+            color="primary"
+            (click)="switchStep({transport: 1})">
+      continue
+    </button>
+    <button mat-stroked-button color="primary"
+            *ngIf="workflowSteps.activeStep > 0"
+            (click)="switchStep({transport: -1})">
+      previous
+    </button>
   </div>
 </div>

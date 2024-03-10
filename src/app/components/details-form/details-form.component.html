@@ -1,0 +1,15 @@
+<div class="details-form">
+  <h2>Project details</h2>
+  <form [formGroup]="formGroup">
+    <mat-form-field>
+      <mat-label>title</mat-label>
+      <input matInput type="text" formControlName="title">
+      <mat-error>{{getErrorKey(formGroup.get('title')?.errors).toUpperCase()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>description</mat-label>
+      <input matInput type="text" formControlName="description">
+      <mat-error>{{getErrorKey(formGroup.get('description')?.errors).toUpperCase()}}</mat-error>
+    </mat-form-field>
+  </form>
+</div>

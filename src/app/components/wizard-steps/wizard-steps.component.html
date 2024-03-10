@@ -5,11 +5,19 @@
   <div class="wizard-steps-container">
     @for (step of workflowSteps.steps; track $index) {
       <div class="wizard-steps__step"
-           [ngClass]="workflowSteps.activeStep === $index ? 'wizard-steps__step--active'
+           [ngClass]="
+           workflowSteps.activeStep === $index && step.invalid ? 'wizard-steps__step--invalid'
+           : workflowSteps.activeStep === $index ? 'wizard-steps__step--active'
            : step.visited && step.invalid ? 'wizard-steps__step--invalid'
            : step.visited ? 'wizard-steps__step--done' : ''">
         <a class="wizard-steps__step-icon" (click)="selectStep($index)">
-          <mat-icon>{{ step.visited && !step.invalid ? 'done' : 'fiber_manual_record' }}</mat-icon>
+          <mat-icon>
+            {{
+              step.visited && !step.invalid ? 'done'
+                : step.invalid ? 'close'
+                  : 'fiber_manual_record'
+            }}
+          </mat-icon>
         </a>
         <a class="wizard-steps__step-label" (click)="selectStep($index)">{{ step.label }}</a>
       </div>

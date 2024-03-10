@@ -28,12 +28,15 @@ import {BuilderWorkflowComponent} from "./pages/builder-workflow/builder-workflo
 import {PanZoomComponent} from "ngx-panzoom";
 import {BuilderToolbarComponent} from "./components/builder-toolbar/builder-toolbar.component";
 import {WizardStepsComponent} from "./components/wizard-steps/wizard-steps.component";
+import {DetailsFormComponent} from "./components/details-form/details-form.component";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     HomeComponent,
+    DetailsFormComponent,
     BuilderWorkflowComponent,
     BuilderComponent,
     SceneTableComponent,
@@ -66,7 +69,8 @@ import {WizardStepsComponent} from "./components/wizard-steps/wizard-steps.compo
     MatMenuModule,
     PanZoomComponent,
     BuilderToolbarComponent,
-    WizardStepsComponent
+    WizardStepsComponent,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

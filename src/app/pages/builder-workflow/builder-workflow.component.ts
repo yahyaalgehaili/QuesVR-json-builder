@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import {Scene, VIDEO_FORMATS} from "../../models/scene.model";
-import {WizardStepList} from "../../components/wizard-steps/wizard-steps.component";
+import {Scene, StoryInfo, VIDEO_FORMATS} from "../../models/scene.model";
+import {NavigationEvent, WizardStepList} from "../../components/wizard-steps/wizard-steps.component";
+import {DetailsFormModel} from "../../components/details-form/details-form.component";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({
   selector: 'app-builder-workflow',
@@ -8,6 +10,14 @@ import {WizardStepList} from "../../components/wizard-steps/wizard-steps.compone
   styleUrl: './builder-workflow.component.scss'
 })
 export class BuilderWorkflowComponent {
+
+  nextStepObservable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  details: StoryInfo = {
+    title: '',
+    description: '',
+    path: ''
+  }
 
   workflowSteps: WizardStepList = {
     activeStep: 0,
@@ -121,5 +131,52 @@ export class BuilderWorkflowComponent {
     ]
   }
 
+  setDetails(details: DetailsFormModel) {
+    this.details = {
+      title: details.title?.trim() ?? '',
+      description: details.description ?? '',
+      path: details.title ? details.title?.trim().replace(' ', '-') : ''
+    }
+  }
+
+  switchStep(navigation: NavigationEvent) {
+    if (!this.validateCurrentStep()) {
+      this.workflowSteps.steps[this.workflowSteps.activeStep].invalid = true;
+      return;
+    }
+    this.workflowSteps.steps[this.workflowSteps.activeStep].invalid = false;
+
+    if (navigation.transport !== undefined) {
+      this.workflowSteps.steps[this.workflowSteps.activeStep].visited = navigation.transport > 0;
+
+      if (this.workflowSteps.steps[this.workflowSteps.activeStep + navigation.transport]) {
+        this.workflowSteps.activeStep = this.workflowSteps.activeStep + navigation.transport;
+      }
+      return;
+    }
+
+    if (navigation.target !== undefined) {
+      this.workflowSteps.activeStep = navigation.target;
+
+      this.workflowSteps.steps.forEach((step, index) => {
+        step.visited = index <= (navigation.target as number);
+      })
+      return;
+    }
+  }
+
+  validateCurrentStep(): boolean {
+    switch (this.workflowSteps.activeStep) {
+      case 0:
+        this.nextStepObservable.next(!this.validateDetails());
+        return this.validateDetails();
+      default:
+        return true
+    }
+  }
+
+  validateDetails(): boolean {
+    return !!this.details.title && !!this.details.description;
+  }
 
 }
