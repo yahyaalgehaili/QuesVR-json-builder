@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import {Scene, StoryInfo, VIDEO_FORMATS} from "../../models/scene.model";
 import {NavigationEvent, WizardStepList} from "../../components/wizard-steps/wizard-steps.component";
 import {DetailsFormModel} from "../../components/details-form/details-form.component";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs";
+import {VideoContextItem} from "../../components/video-list/video-list.component";
 
 @Component({
   selector: 'app-builder-workflow',
@@ -13,10 +14,24 @@ export class BuilderWorkflowComponent {
 
   nextStepObservable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  videos: VideoContextItem[] = [
+    // {id: '1', name: 'test', length: 120, format: 'left-eye-on-top'},
+    // {id: '1', name: 'test', length: 120, format: 'monoscope'},
+    // {id: '1', name: 'test', length: 120, format: 'monoscope'},
+    // {id: '1', name: 'test', length: 120, format: 'left-eye-on-top'},
+    // {id: '1', name: 'test', length: 120, format: 'left-eye-on-top'},
+    // {id: '1', name: 'test', length: 120, format: 'left-eye-on-top'},
+    // {id: '1', name: 'test', length: 120, format: 'monoscope'},
+    // {id: '1', name: 'test', length: 120, format: 'monoscope'},
+    // {id: '1', name: 'test', length: 120, format: 'left-eye-on-top'},
+    // {id: '1', name: 'test', length: 120, format: 'monoscope'},
+    // {id: '1', name: 'test', length: 120, format: 'left-eye-on-top'},
+  ]
+
   details: StoryInfo = {
-    title: '',
-    description: '',
-    path: ''
+    title: 'test',
+    description: 'test',
+    path: 'test'
   }
 
   workflowSteps: WizardStepList = {
@@ -170,6 +185,9 @@ export class BuilderWorkflowComponent {
       case 0:
         this.nextStepObservable.next(!this.validateDetails());
         return this.validateDetails();
+      case 1:
+        this.nextStepObservable.next(!this.validateVideos());
+        return this.validateVideos();
       default:
         return true
     }
@@ -179,4 +197,11 @@ export class BuilderWorkflowComponent {
     return !!this.details.title && !!this.details.description;
   }
 
+  validateVideos(): boolean {
+    return this.videos.length > 0;
+  }
+
+  setVideos(videos: VideoContextItem[]) {
+    this.videos = videos;
+  }
 }

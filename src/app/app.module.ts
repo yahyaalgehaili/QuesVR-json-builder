@@ -30,6 +30,10 @@ import {BuilderToolbarComponent} from "./components/builder-toolbar/builder-tool
 import {WizardStepsComponent} from "./components/wizard-steps/wizard-steps.component";
 import {DetailsFormComponent} from "./components/details-form/details-form.component";
 import {MatInputModule} from "@angular/material/input";
+import {VideoListComponent} from "./components/video-list/video-list.component";
+import {MatTableModule} from "@angular/material/table";
+import {DragDropDirective} from "./directives/drag-drop.directive";
+import {UploadVideoFilesDialogComponent} from "./dialogs/upload-video-files-dialog/upload-video-files-dialog.component";
 
 @NgModule({
   declarations: [
@@ -40,7 +44,10 @@ import {MatInputModule} from "@angular/material/input";
     BuilderWorkflowComponent,
     BuilderComponent,
     SceneTableComponent,
-    VideoOptionComponent
+    VideoOptionComponent,
+    VideoListComponent,
+    UploadVideoFilesDialogComponent,
+    DragDropDirective
   ],
   imports: [
     BrowserModule,
@@ -70,9 +77,13 @@ import {MatInputModule} from "@angular/material/input";
     PanZoomComponent,
     BuilderToolbarComponent,
     WizardStepsComponent,
-    MatInputModule
+    MatInputModule,
+    MatTableModule
   ],
   providers: [],
+  exports: [
+    DragDropDirective
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

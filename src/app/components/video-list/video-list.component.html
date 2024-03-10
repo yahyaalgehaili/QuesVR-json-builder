@@ -1,0 +1,45 @@
+<div class="video-list">
+@if(videos && videos.length  > 0) {
+  <div class="video-list__actions">
+    <button mat-stroked-button color="primary" (click)="openUploadDialog()"><mat-icon>add</mat-icon> Add</button>
+  </div>
+  <div class="video-list__content">
+    <table mat-table [dataSource]="videos">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>id</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+      <ng-container matColumnDef="length">
+        <th mat-header-cell *matHeaderCellDef>length</th>
+        <td mat-cell *matCellDef="let element">{{ element.length }}</td>
+      </ng-container>
+      <ng-container matColumnDef="format">
+        <th mat-header-cell *matHeaderCellDef>format</th>
+        <td mat-cell *matCellDef="let element">{{ element.format }}</td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+} @else {
+  <div class="video-list__empty-state" appDragDrop (files)="uploadFiles($event)" (click)="fileUpload.click()">
+    <input class="video-list__empty-state-file-input" type="file" multiple accept="vieo/mp4" (change)="onFileSelect($event)" #fileUpload>
+    <mat-icon>library_add</mat-icon>
+    <h2>Select your videos to upload</h2>
+    <span>or Drag and Drop videos</span>
+    <span>or</span>
+    <button mat-stroked-button color="primary" (click)="addFilesManually($event)">Add manually</button>
+  </div>
+}
+</div>

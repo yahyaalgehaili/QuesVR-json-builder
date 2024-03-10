@@ -10,7 +10,7 @@
         <div></div>
       }
       @case(1) {
-        <div>videos</div>
+        <app-video-list [videos]="videos" (upload)="setVideos($event)"></app-video-list>
       }
       @case(2) {
         <app-builder [scene]="scene" class="builder-workflow__builder"></app-builder>

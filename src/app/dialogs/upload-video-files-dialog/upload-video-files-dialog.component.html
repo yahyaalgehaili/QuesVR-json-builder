@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>{{ manualInput ? 'handmatig videos toevoegen' : 'videos uploaden' }}</h2>
+<mat-dialog-content>
+  <div class="upload-video-files-dialog">
+    @if(!manualInput) {
+      <div class="upload-video-files-dialog__upload-container" appDragDrop (files)="uploadFiles($event)" (click)="fileUpload.click()">
+        <input class="upload-video-files-dialog__upload-container-file-input" type="file" multiple accept="vieo/mp4" (change)="onFileSelect($event)" #fileUpload>
+        <mat-icon>library_add</mat-icon>
+        <h3>Select your videos to upload</h3>
+        <span>or Drag and Drop videos</span>
+        <span>or</span>
+        <button mat-stroked-button color="primary" (click)="toggleManualInput($event)">Add manually</button>
+      </div>
+    } @else {
+      <span>force manual</span>
+    }
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button color="primary" [mat-dialog-close]="{uploadedVideos}">submit</button>
+</mat-dialog-actions>
+
