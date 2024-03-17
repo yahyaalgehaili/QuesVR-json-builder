@@ -1,0 +1,14 @@
+<div class="video-list-item">
+  <div class="video-list-item__icon-container">
+    <mat-icon>movie</mat-icon>
+  </div>
+  <div class="video-list-item__context">
+    <span class="video-list-item__context-item">{{video.name}}</span>
+    <span class="video-list-item__context-item--small">{{video.length * 1000 | date:'mm:ss'}}</span>
+    <span class="video-list-item__context-item video-list-item__badge"></span>
+  </div>
+  <div class="video-list-item__action">
+    <button mat-icon-button><mat-icon>edit</mat-icon></button>
+  </div>
+
+</div>

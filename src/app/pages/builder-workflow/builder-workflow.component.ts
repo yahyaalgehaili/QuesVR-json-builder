@@ -1,32 +1,20 @@
-import { Component } from '@angular/core';
-import {Scene, StoryInfo, VIDEO_FORMATS} from "../../models/scene.model";
+import {Component, OnInit} from '@angular/core';
+import {Scene, StoryInfo} from "../../models/scene.model";
 import {NavigationEvent, WizardStepList} from "../../components/wizard-steps/wizard-steps.component";
 import {DetailsFormModel} from "../../components/details-form/details-form.component";
-import {BehaviorSubject} from "rxjs";
-import {VideoContextItem} from "../../components/video-list/video-list.component";
+import {BehaviorSubject, Observable, of} from "rxjs";
+import {VideoContextItem, VideoService} from "../../services/video.service";
 
 @Component({
   selector: 'app-builder-workflow',
   templateUrl: './builder-workflow.component.html',
   styleUrl: './builder-workflow.component.scss'
 })
-export class BuilderWorkflowComponent {
+export class BuilderWorkflowComponent implements OnInit {
 
   nextStepObservable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  videos: VideoContextItem[] = [
-    // {id: '1', name: 'test', length: 120, format: 'left-eye-on-top'},
-    // {id: '1', name: 'test', length: 120, format: 'monoscope'},
-    // {id: '1', name: 'test', length: 120, format: 'monoscope'},
-    // {id: '1', name: 'test', length: 120, format: 'left-eye-on-top'},
-    // {id: '1', name: 'test', length: 120, format: 'left-eye-on-top'},
-    // {id: '1', name: 'test', length: 120, format: 'left-eye-on-top'},
-    // {id: '1', name: 'test', length: 120, format: 'monoscope'},
-    // {id: '1', name: 'test', length: 120, format: 'monoscope'},
-    // {id: '1', name: 'test', length: 120, format: 'left-eye-on-top'},
-    // {id: '1', name: 'test', length: 120, format: 'monoscope'},
-    // {id: '1', name: 'test', length: 120, format: 'left-eye-on-top'},
-  ]
+  videos$: Observable<VideoContextItem[]> = of([]);
 
   details: StoryInfo = {
     title: 'test',
@@ -67,83 +55,14 @@ export class BuilderWorkflowComponent {
   scene: Scene = {
     name: 'test scene',
     id: 1,
-    videos: [
-      {
-        id: 0,
-        videoFormat: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
-        fileName: 'Test/test-scene1.mp4',
-        questions: [
-          {
-            title: 'Where do you want to go?',
-            startAppearance: 10,
-            endAppearance: 50,
-            options: [
-              {title: 'left', gotoId: null},
-              {title: 'right', gotoId: null},
-              {title: 'up', gotoId: null}
-            ]
-          },
-        ],
-        nextVideo: 1,
-      },
-      {
-        id: 1,
-        videoFormat: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
-        fileName: 'Test/test-scene1.mp4',
-        questions: [
-          {
-            title: 'Where do you want to go?',
-            startAppearance: 10,
-            endAppearance: 50,
-            options: [
-              {title: 'left', gotoId: 1},
-              {title: 'right', gotoId: 2},
-              {title: 'up', gotoId: 3}
-            ]
-          }
-        ],
-        builderConfig: {
-          point: {
-            x: 620,
-            y: 320
-          }
-        }
-      },
-      {
-        id: 2,
-        videoFormat: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
-        fileName: 'Test/test-scene1.mp4',
-        questions: [
-          {
-            title: 'Where do you want to go?',
-            startAppearance: 10,
-            endAppearance: 50,
-            options: [
-              {title: 'left', gotoId: 1},
-              {title: 'right', gotoId: 2},
-              {title: 'up', gotoId: 3}
-            ]
-          }
-        ]
-      },
-      {
-        id: 3,
-        videoFormat: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
-        fileName: 'Test/test-scene1.mp4',
-        questions: [
-          {
-            title: 'Where do you want to go?',
-            startAppearance: 10,
-            endAppearance: 50,
-            options: [
-              {title: 'left', gotoId: 1},
-              {title: 'right', gotoId: 2},
-              {title: 'up', gotoId: 3}
-            ]
-          }
-        ]
-      }
-    ]
+    videos: []
+  }
+
+  constructor(private videoService: VideoService) {
+  }
+
+  ngOnInit(): void {
+    this.videos$ = this.videoService.getSelectedVideos$();
   }
 
   setDetails(details: DetailsFormModel) {
@@ -198,10 +117,10 @@ export class BuilderWorkflowComponent {
   }
 
   validateVideos(): boolean {
-    return this.videos.length > 0;
+    return this.videoService.getSelectedVideos().length > 0
   }
 
   setVideos(videos: VideoContextItem[]) {
-    this.videos = videos;
+    this.videoService.addVideos(videos);
   }
 }

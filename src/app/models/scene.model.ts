@@ -41,3 +41,81 @@ export interface OptionModel {
   title: string;
   gotoId?: number | null;
 }
+
+export const mockVideos: VideoModel[] = [
+  {
+    id: 0,
+    videoFormat: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
+    fileName: 'Test/test-scene1.mp4',
+    questions: [
+      {
+        title: 'Where do you want to go?',
+        startAppearance: 10,
+        endAppearance: 50,
+        options: [
+          {title: 'left', gotoId: null},
+          {title: 'right', gotoId: null},
+          {title: 'up', gotoId: null}
+        ]
+      },
+    ],
+    nextVideo: 1,
+  },
+  {
+    id: 1,
+    videoFormat: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
+    fileName: 'Test/test-scene1.mp4',
+    questions: [
+      {
+        title: 'Where do you want to go?',
+        startAppearance: 10,
+        endAppearance: 50,
+        options: [
+          {title: 'left', gotoId: 1},
+          {title: 'right', gotoId: 2},
+          {title: 'up', gotoId: 3}
+        ]
+      }
+    ],
+    builderConfig: {
+      point: {
+        x: 620,
+        y: 320
+      }
+    }
+  },
+  {
+    id: 2,
+    videoFormat: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
+    fileName: 'Test/test-scene1.mp4',
+    questions: [
+      {
+        title: 'Where do you want to go?',
+        startAppearance: 10,
+        endAppearance: 50,
+        options: [
+          {title: 'left', gotoId: 1},
+          {title: 'right', gotoId: 2},
+          {title: 'up', gotoId: 3}
+        ]
+      }
+    ]
+  },
+  {
+    id: 3,
+    videoFormat: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
+    fileName: 'Test/test-scene1.mp4',
+    questions: [
+      {
+        title: 'Where do you want to go?',
+        startAppearance: 10,
+        endAppearance: 50,
+        options: [
+          {title: 'left', gotoId: 1},
+          {title: 'right', gotoId: 2},
+          {title: 'up', gotoId: 3}
+        ]
+      }
+    ]
+  }
+];

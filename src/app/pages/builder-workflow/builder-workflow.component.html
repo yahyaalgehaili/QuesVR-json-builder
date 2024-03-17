@@ -2,7 +2,7 @@
   <div class="builder-workflow__top-bar">
     <app-wizard-steps class="builder-workflow__steps" [workflowSteps]="workflowSteps" (navigation)="switchStep($event)"></app-wizard-steps>
   </div>
-  <div class="builder-workflow__container">
+  <div class="builder-workflow__container" *ngIf="videos$ | async as videos">
     @switch (workflowSteps.activeStep) {
       @case(0) {
         <div></div>
@@ -10,10 +10,10 @@
         <div></div>
       }
       @case(1) {
-        <app-video-list [videos]="videos" (upload)="setVideos($event)"></app-video-list>
+        <app-video-list  [videos]="videos" (upload)="setVideos($event)"></app-video-list>
       }
       @case(2) {
-        <app-builder [scene]="scene" class="builder-workflow__builder"></app-builder>
+        <app-builder [videos]="videos" [scene]="scene" class="builder-workflow__builder"></app-builder>
       }
       @case(3) {
         <div>preview</div>

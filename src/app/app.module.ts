@@ -34,6 +34,8 @@ import {VideoListComponent} from "./components/video-list/video-list.component";
 import {MatTableModule} from "@angular/material/table";
 import {DragDropDirective} from "./directives/drag-drop.directive";
 import {UploadVideoFilesDialogComponent} from "./dialogs/upload-video-files-dialog/upload-video-files-dialog.component";
+import {VideoListItemComponent} from "./components/video-list-item/video-list-item.component";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import {UploadVideoFilesDialogComponent} from "./dialogs/upload-video-files-dial
     SceneTableComponent,
     VideoOptionComponent,
     VideoListComponent,
+    VideoListItemComponent,
     UploadVideoFilesDialogComponent,
     DragDropDirective
   ],
@@ -78,7 +81,8 @@ import {UploadVideoFilesDialogComponent} from "./dialogs/upload-video-files-dial
     BuilderToolbarComponent,
     WizardStepsComponent,
     MatInputModule,
-    MatTableModule
+    MatTableModule,
+    MatAutocompleteModule
   ],
   providers: [],
   exports: [

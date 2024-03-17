@@ -42,6 +42,20 @@
   }
 
   &__location {
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: rgba(255, 255, 255, 0) !important;
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+
+    .mat-mdc-form-field-infix {
+      min-height: 32px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
     &-input {
       border: none;
       margin: 0 8px;
@@ -58,8 +72,8 @@
 
   &__drag-area {
     position: absolute;
-    width: 300px;
-    height: 50px;
+    bottom: 0;
+    right: 0;
     top: 0;
     left: 0;
     border: #ed335b solid 5px;

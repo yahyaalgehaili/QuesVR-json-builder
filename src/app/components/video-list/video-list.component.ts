@@ -3,17 +3,9 @@ import {FileHandle} from "../../directives/drag-drop.directive";
 import {CollectionViewer, DataSource} from "@angular/cdk/collections";
 import {BehaviorSubject, debounceTime, Observable, ReplaySubject} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
-import {
-  UploadVideoFilesDialogComponent
-} from "../../dialogs/upload-video-files-dialog/upload-video-files-dialog.component";
+import {VideoContextItem, VideoService} from "../../services/video.service";
+import {VIDEO_FORMATS} from "../../models/scene.model";
 
-export interface VideoContextItem {
-  id: string;
-  name: string;
-  /* length in seconds */
-  length: number;
-  format: string;
-}
 
 @Component({
   selector: 'app-video-list',
@@ -34,7 +26,10 @@ export class VideoListComponent implements OnInit, OnChanges {
 
   uploadedVideos$: BehaviorSubject<VideoContextItem[]> = new BehaviorSubject<VideoContextItem[]>([]);
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    public videoService: VideoService
+  ) {
   }
 
   ngOnInit(): void {
@@ -63,7 +58,7 @@ export class VideoListComponent implements OnInit, OnChanges {
         videos.push({
           id: '1',
           name: file.file.name,
-          format: 'left-eye-on-top',
+          format: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
           length: Math.round(video.duration)
         });
         this.uploadedVideos$.next(videos);
@@ -83,18 +78,7 @@ export class VideoListComponent implements OnInit, OnChanges {
 
   addFilesManually(event: Event) {
     event.stopPropagation();
-    this.openUploadDialog(true);
-  }
-
-  openUploadDialog(forceManual: boolean = false): void {
-    const dialogRef = this.dialog.open(UploadVideoFilesDialogComponent, {data: {forceManual}});
-
-    dialogRef.afterClosed().subscribe((result: {videos: VideoContextItem[]}) => {
-      if (result?.videos) {
-        this.videos.push(...result.videos);
-        this.uploadedVideos$.next([...this.videos])
-      }
-    })
+    this.videoService.openUploadDialog(true);
   }
 }
 

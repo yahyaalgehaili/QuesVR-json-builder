@@ -7,24 +7,22 @@
   <div class="scene-table__header">
     <span class="scene-table__id">{{video.id}}</span>
     <span class="scene-table__location">
-      <input class="scene-table__location-input" placeholder="video path..." [(ngModel)]="video.fileName" (ngModelChange)="this.onUpdate.emit(this.video)">
-    </span>
-    <span class="scene-table__video-format">
-      <mat-select class="scene-table__video-format-select" [(ngModel)]="video.videoFormat"
-                  [matTooltip]="'videoFormat: ' + getVideoFormatTooltip(video.videoFormat)"
-                  [hideSingleSelectionIndicator]="true">
-        <mat-select-trigger>
-          <mat-icon>{{getVideoFormatIcon(video.videoFormat)}}</mat-icon>
-        </mat-select-trigger>
-        <mat-option [value]="VIDEO_FORMATS.LEFT_EYE_ON_TOP" class="scene-table__video-format-option"
-                    [matTooltip]="getVideoFormatTooltip(VIDEO_FORMATS.LEFT_EYE_ON_TOP)" matTooltipPosition="above">
-          <ng-container [ngTemplateOutlet]="left_eye_on_top"></ng-container>
-        </mat-option>
-        <mat-option [value]="VIDEO_FORMATS.MONO_SCOPE" class="scene-table__video-format-option"
-                    [matTooltip]="getVideoFormatTooltip(VIDEO_FORMATS.MONO_SCOPE)">
-          <ng-container [ngTemplateOutlet]="mono_scope"></ng-container>
-        </mat-option>
-      </mat-select>
+      <mat-form-field [matTooltip]="videoControl.value?.name ?? ''">
+        <input #videoInput
+               class="scene-table__location-input"
+               matInput
+               [formControl]="videoControl"
+               [matAutocomplete]="videoAuto"
+               (input)="filter()"
+               (focus)="filter()"
+               placeholder="video path...">
+        <mat-autocomplete requireSelection #videoAuto="matAutocomplete" [displayWith]="getVideoOptionText">
+          @for (video of filteredVideoOptions; track video.id) {
+            <mat-option [value]="video">{{video.name}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+
     </span>
     <span class="scene-table__delete-action" *ngIf="video.id !== 0">
       <button mat-icon-button (click)="removeVideo()" [matTooltip]="'Remove video'">
@@ -105,11 +103,3 @@
     </button>
   </div>
 </div>
-
-<ng-template #left_eye_on_top>
-  <mat-icon>view_in_ar</mat-icon>
-</ng-template>
-
-<ng-template #mono_scope>
-  <mat-icon>crop_din</mat-icon>
-</ng-template>

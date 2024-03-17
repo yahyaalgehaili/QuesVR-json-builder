@@ -1,0 +1,38 @@
+.video-list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+
+  &__icon-container {
+    padding: 8px;
+    background-color: var(--primary-400);
+    color: var(--neutral-50);
+  }
+
+  &__context {
+    flex: 1;
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+
+    &-item {
+
+
+      &--small {
+        font-size: 12px;
+      }
+    }
+  }
+
+  &__action {
+    visibility: hidden;
+  }
+
+  &:hover {
+    .video-list-item__action {
+      visibility: visible;
+    }
+  }
+
+}

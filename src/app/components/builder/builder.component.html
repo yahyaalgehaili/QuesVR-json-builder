@@ -17,10 +17,16 @@
         <h2>{{'BUILDER.VIDEO_SLIDER.HEADER' | translate}}</h2>
         <button mat-icon-button
                 class="builder__add-button small-icon-button"
+                (click)="videoService.openUploadDialog()"
                 [matTooltip]="'BUILDER.VIDEO_SLIDER.ADD_VIDEO' | translate"
                 [color]="'primary'">
           <mat-icon>add</mat-icon>
         </button>
+      </div>
+      <div class="builder__video-list">
+        @for (video of videos; track video.id) {
+          <app-video-list-item [video]="video"></app-video-list-item>
+        }
       </div>
     </mat-drawer>
 

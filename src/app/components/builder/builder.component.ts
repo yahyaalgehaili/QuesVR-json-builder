@@ -1,13 +1,13 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Scene, VIDEO_FORMATS, VideoModel} from '../../models/scene.model';
 import {ArrowDragService} from '../../services/arrow-drag.service';
-import {MatDialog} from '@angular/material/dialog';
 import {PanZoomAPI, PanZoomConfig, PanZoomConfigOptions, PanZoomModel} from "ngx-panzoom";
 import {interval, sampleTime, Subscription, tap} from "rxjs";
 import {cloneDeep} from "lodash";
 import {JsonEditorOptions} from "ang-jsoneditor";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {TranslateService} from "@ngx-translate/core";
+import {VideoContextItem, VideoService} from "../../services/video.service";
 
 @Component({
   selector: 'app-builder',
@@ -27,6 +27,7 @@ export class BuilderComponent implements OnInit, OnDestroy {
 
   private panZoomConfigOptions: PanZoomConfigOptions = {
     zoomLevels: 4,
+    zoomOnDoubleClick: false,
     scalePerZoomLevel: 2.0,
     zoomStepDuration: 0.01,
     freeMouseWheelFactor: 0.001,
@@ -45,12 +46,15 @@ export class BuilderComponent implements OnInit, OnDestroy {
   @Input()
   scene: Scene;
 
+  @Input()
+  videos: VideoContextItem[] = [];
+
   constructor(
     private draggingArrowService: ArrowDragService,
-    public dialog: MatDialog,
     private changeDetector: ChangeDetectorRef,
     private snackbar: MatSnackBar,
-    private translate: TranslateService
+    private translate: TranslateService,
+    public videoService: VideoService
   ) {}
 
   ngOnInit(): void {

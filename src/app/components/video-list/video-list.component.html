@@ -1,13 +1,13 @@
 <div class="video-list">
 @if(videos && videos.length  > 0) {
   <div class="video-list__actions">
-    <button mat-stroked-button color="primary" (click)="openUploadDialog()"><mat-icon>add</mat-icon> Add</button>
+    <button mat-stroked-button color="primary" (click)="videoService.openUploadDialog()"><mat-icon>add</mat-icon> Add</button>
   </div>
   <div class="video-list__content">
     <table mat-table [dataSource]="videos">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>id</th>
-        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        <td mat-cell *matCellDef="let element"><mat-icon>movie</mat-icon></td>
       </ng-container>
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>name</th>

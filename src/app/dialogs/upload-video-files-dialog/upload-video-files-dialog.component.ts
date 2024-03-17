@@ -1,8 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FileHandle} from "../../directives/drag-drop.directive";
-import {VideoContextItem} from "../../components/video-list/video-list.component";
 import {BehaviorSubject, debounceTime} from "rxjs";
+import {VideoContextItem} from "../../services/video.service";
+import {VIDEO_FORMATS} from "../../models/scene.model";
 
 export interface UploadVideoFilesUploadData {
   forceManual?: boolean;
@@ -48,7 +49,7 @@ export class UploadVideoFilesDialogComponent implements OnInit {
         videos.push({
           id: '1',
           name: file.file.name,
-          format: 'left-eye-on-top',
+          format: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
           length: Math.round(video.duration)
         });
         this.uploadedVideos$.next(videos);

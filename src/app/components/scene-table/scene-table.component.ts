@@ -1,15 +1,29 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import {VIDEO_FORMATS, VideoModel} from '../../models/scene.model';
 import {ArrowDragService} from '../../services/arrow-drag.service';
 import {Observable, Subscription} from 'rxjs';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
+import {FormControl} from "@angular/forms";
+import {VideoContextItem, VideoService} from "../../services/video.service";
 
 declare var LeaderLine: any;
 
 @Component({
   selector: 'app-scene-table',
   templateUrl: './scene-table.component.html',
-  styleUrls: ['./scene-table.component.scss']
+  styleUrls: ['./scene-table.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -36,19 +50,31 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   nextVideoActionElementId: string;
-
   updatedTable$: Observable<boolean>;
-
   subscription: Subscription;
+
+  @ViewChild('videoInput') videoInput: ElementRef<HTMLInputElement>;
+  videoOptions: VideoContextItem[] = [];
+  filteredVideoOptions: VideoContextItem[] = [];
+
+  videoControl: FormControl<VideoContextItem | null> = new FormControl<VideoContextItem | null>(null);
 
   protected readonly Number = Number;
 
   protected readonly VIDEO_FORMATS = VIDEO_FORMATS;
 
-  constructor(private draggingArrowService: ArrowDragService) {
+  constructor(
+    private draggingArrowService: ArrowDragService,
+    private videoService: VideoService
+  ) {
   }
 
   ngOnInit(): void {
+    this.videoService.getSelectedVideos$().subscribe((videos) => {
+      this.videoOptions = videos;
+      this.filteredVideoOptions = this.videoOptions.slice();
+    });
+
     if (this.video) {
       this.nextVideoActionElementId = 'next-video-action-' + this.video.id;
     }
@@ -61,6 +87,14 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.goToArrow.remove();
         this.goToArrow = undefined;
         this.nextVideoElement = undefined;
+      }
+    })
+
+    this.videoControl.valueChanges.subscribe((value) => {
+      if (value) {
+        this.video.fileName = value.name;
+        this.video.videoFormat = value.format;
+        this.onUpdate.emit(this.video);
       }
     })
   }
@@ -77,6 +111,15 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
       this.goToArrow = undefined;
     }
   }
+
+  filter(): void {
+    const filterValue = this.videoInput.nativeElement.value.toLowerCase();
+    this.filteredVideoOptions = this.videoOptions.filter(o => o.name.toLowerCase().includes(filterValue));
+  }
+
+  getVideoOptionText(option: VideoContextItem): string {
+    return option?.name;
+  };
 
   initArrow(): void {
     if (this.video.nextVideo) {
@@ -149,28 +192,6 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.video.questions.splice(questionId, 1);
     setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);
     this.onUpdate.emit(this.video);
-  }
-
-  getVideoFormatIcon(videoFormat: VIDEO_FORMATS): string {
-    switch (videoFormat) {
-      case VIDEO_FORMATS.LEFT_EYE_ON_TOP:
-        return 'view_in_ar';
-      case VIDEO_FORMATS.MONO_SCOPE:
-        return 'crop_din';
-      default:
-        return '';
-    }
-  }
-
-  getVideoFormatTooltip(videoFormat: VIDEO_FORMATS): string {
-    switch (videoFormat) {
-      case VIDEO_FORMATS.LEFT_EYE_ON_TOP:
-        return 'Left eye on top';
-      case VIDEO_FORMATS.MONO_SCOPE:
-        return 'Monoscope';
-      default:
-        return '';
-    }
   }
 
   onArrowDrag() {
