@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "vraaag-json-builder": {
+    "quesvr-json-builder": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/vraaag-json-builder",
+            "outputPath": "dist/quesvr-json-builder",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -40,8 +40,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -66,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "vraaag-json-builder:build:production"
+              "buildTarget": "quesvr-json-builder:build:production"
             },
             "development": {
-              "buildTarget": "vraaag-json-builder:build:development"
+              "buildTarget": "quesvr-json-builder:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -77,7 +77,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "vraaag-json-builder:build"
+            "buildTarget": "quesvr-json-builder:build"
           }
         },
         "test": {
