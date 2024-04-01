@@ -88,7 +88,9 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.goToArrow = undefined;
         this.nextVideoElement = undefined;
       }
-    })
+    });
+
+    this.initVideoInput();
 
     this.videoControl.valueChanges.subscribe((value) => {
       if (value) {
@@ -112,12 +114,27 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  initVideoInput() {
+    if (this.video.fileName) {
+      const selectedVideo = this.videoOptions.find((video) => video.name === this.video.fileName);
+      if (selectedVideo) {
+        this.videoControl.setValue(selectedVideo);
+      }
+
+    }
+  }
+
   filter(): void {
     const filterValue = this.videoInput.nativeElement.value.toLowerCase();
     this.filteredVideoOptions = this.videoOptions.filter(o => o.name.toLowerCase().includes(filterValue));
   }
 
   getVideoOptionText(option: VideoContextItem): string {
+    const stringList: string[] = option?.name.split('/');
+    if (stringList && stringList.length) {
+      return stringList[stringList.length - 1];
+    }
+
     return option?.name;
   };
 
@@ -170,7 +187,7 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
   addOption(questionId: number): void {
     this.video.questions[questionId].options.push({
       title: '',
-      gotoId: 0
+      gotoId: null
     })
 
     setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);

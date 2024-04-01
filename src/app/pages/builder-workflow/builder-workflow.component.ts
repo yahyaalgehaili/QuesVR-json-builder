@@ -4,6 +4,8 @@ import {NavigationEvent, WizardStepList} from "../../components/wizard-steps/wiz
 import {DetailsFormModel} from "../../components/details-form/details-form.component";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {VideoContextItem, VideoService} from "../../services/video.service";
+import {DetailsService} from "../../services/details.service";
+import {SceneService} from "../../services/scene.service";
 
 @Component({
   selector: 'app-builder-workflow',
@@ -16,11 +18,7 @@ export class BuilderWorkflowComponent implements OnInit {
 
   videos$: Observable<VideoContextItem[]> = of([]);
 
-  details: StoryInfo = {
-    title: 'test',
-    description: 'test',
-    path: 'test'
-  }
+  details$: Observable<StoryInfo>;
 
   workflowSteps: WizardStepList = {
     activeStep: 0,
@@ -52,25 +50,29 @@ export class BuilderWorkflowComponent implements OnInit {
     ]
   }
 
-  scene: Scene = {
-    name: 'test scene',
-    id: 1,
-    videos: []
-  }
+  scene$: Observable<Scene>;
 
-  constructor(private videoService: VideoService) {
-  }
+  constructor(
+    private videoService: VideoService,
+    private detailsService: DetailsService,
+    private sceneService: SceneService
+  ) {}
 
   ngOnInit(): void {
     this.videos$ = this.videoService.getSelectedVideos$();
+    this.details$ = this.detailsService.getDetails$();
+    this.scene$ = this.sceneService.getScene$();
   }
 
   setDetails(details: DetailsFormModel) {
-    this.details = {
+    const newPathName = details.title ? details.title?.trim().replace(' ', '-') : ''
+    this.detailsService.setDetails({
       title: details.title?.trim() ?? '',
       description: details.description ?? '',
-      path: details.title ? details.title?.trim().replace(' ', '-') : ''
-    }
+      path: newPathName
+    })
+
+    this.videoService.updateVideoPath(newPathName);
   }
 
   switchStep(navigation: NavigationEvent) {
@@ -107,20 +109,33 @@ export class BuilderWorkflowComponent implements OnInit {
       case 1:
         this.nextStepObservable.next(!this.validateVideos());
         return this.validateVideos();
+      case 2:
+        this.nextStepObservable.next(!!this.sceneService.validateScene(this.sceneService.getScene()));
+        return !this.sceneService.validateScene(this.sceneService.getScene());
       default:
         return true
     }
   }
 
+  /**
+   * returns true when valid
+   */
   validateDetails(): boolean {
-    return !!this.details.title && !!this.details.description;
+    return !!this.detailsService.getDetails().title && !!this.detailsService.getDetails().description;
   }
 
+  /**
+   * returns true when valid
+   */
   validateVideos(): boolean {
     return this.videoService.getSelectedVideos().length > 0
   }
 
-  setVideos(videos: VideoContextItem[]) {
+  setVideos(videos: VideoContextItem[]): void {
     this.videoService.addVideos(videos);
+  }
+
+  updateScene(scene: Scene): void {
+    this.sceneService.setScene(scene);
   }
 }

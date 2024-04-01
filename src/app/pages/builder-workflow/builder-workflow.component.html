@@ -6,14 +6,19 @@
     @switch (workflowSteps.activeStep) {
       @case(0) {
         <div></div>
-        <app-details-form [details]="details" [nextEvent]="nextStepObservable" (results)="setDetails($event)"></app-details-form>
+        @if (details$ | async; as details) {
+          <app-details-form [details]="details" [nextEvent]="nextStepObservable" (results)="setDetails($event)"></app-details-form>
+        }
         <div></div>
       }
       @case(1) {
         <app-video-list  [videos]="videos" (upload)="setVideos($event)"></app-video-list>
       }
       @case(2) {
-        <app-builder [videos]="videos" [scene]="scene" class="builder-workflow__builder"></app-builder>
+        @if (scene$ | async; as scene) {
+          <app-builder [videos]="videos" [scene]="scene" (sceneUpdate)="updateScene($event)" class="builder-workflow__builder"></app-builder>
+        }
+
       }
       @case(3) {
         <div>preview</div>

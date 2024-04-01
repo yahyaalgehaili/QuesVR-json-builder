@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Scene, VIDEO_FORMATS, VideoModel} from '../../models/scene.model';
 import {ArrowDragService} from '../../services/arrow-drag.service';
 import {PanZoomAPI, PanZoomConfig, PanZoomConfigOptions, PanZoomModel} from "ngx-panzoom";
@@ -48,6 +48,9 @@ export class BuilderComponent implements OnInit, OnDestroy {
 
   @Input()
   videos: VideoContextItem[] = [];
+
+  @Output()
+  sceneUpdate: EventEmitter<Scene> = new EventEmitter<Scene>();
 
   constructor(
     private draggingArrowService: ArrowDragService,
@@ -109,6 +112,7 @@ export class BuilderComponent implements OnInit, OnDestroy {
         break;
       case "update":
       case "move":
+        this.sceneUpdate.emit(this.scene);
         break;
     }
     setTimeout(() => this.jsonScene = cloneDeep(this.scene), 100);
@@ -130,6 +134,7 @@ export class BuilderComponent implements OnInit, OnDestroy {
     }
 
     this.scene.videos.push(newVideo);
+    this.sceneUpdate.emit(this.scene);
   }
 
   removeVideo(video: VideoModel) {
@@ -139,6 +144,7 @@ export class BuilderComponent implements OnInit, OnDestroy {
       this.scene.videos.splice(
         this.scene.videos.findIndex((v: VideoModel): boolean => v.id === video.id),
         1)
+      this.sceneUpdate.emit(this.scene);
       setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);
     }, 100)
 
@@ -150,6 +156,8 @@ export class BuilderComponent implements OnInit, OnDestroy {
       id: 1,
       videos: []
     }
+
+    this.sceneUpdate.emit(this.scene);
 
     setTimeout(() => this.draggingArrowService.updatedTables$.next(true), 10);
   }

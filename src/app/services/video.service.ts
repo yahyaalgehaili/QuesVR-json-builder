@@ -19,7 +19,7 @@ export interface VideoContextItem {
 })
 export class VideoService {
 
-  private videoStore$: BehaviorSubject<VideoContextItem[]> = new BehaviorSubject<VideoContextItem[]>([])
+  private videoStore$: BehaviorSubject<VideoContextItem[]> = new BehaviorSubject<VideoContextItem[]>([]);
 
   constructor(public dialog: MatDialog) {
   }
@@ -70,5 +70,14 @@ export class VideoService {
         this.addVideos(result.videos);
       }
     })
+  }
+
+  updateVideoPath(newPathName: string) {
+    const newVideos: VideoContextItem[] = this.getSelectedVideos().map((video: VideoContextItem) => ({
+      ...video,
+      name: `${newPathName}/${video.name.split('/')[video.name.split('/').length - 1]}`
+    }))
+
+    this.setVideos(newVideos);
   }
 }

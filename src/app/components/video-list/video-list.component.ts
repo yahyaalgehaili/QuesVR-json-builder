@@ -5,6 +5,7 @@ import {BehaviorSubject, debounceTime, Observable, ReplaySubject} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {VideoContextItem, VideoService} from "../../services/video.service";
 import {VIDEO_FORMATS} from "../../models/scene.model";
+import {DetailsService} from "../../services/details.service";
 
 
 @Component({
@@ -28,7 +29,8 @@ export class VideoListComponent implements OnInit, OnChanges {
 
   constructor(
     public dialog: MatDialog,
-    public videoService: VideoService
+    public videoService: VideoService,
+    private detailsService: DetailsService
   ) {
   }
 
@@ -52,12 +54,13 @@ export class VideoListComponent implements OnInit, OnChanges {
     const videos :VideoContextItem[] = [];
     files.forEach((file) => {
       const video = document.createElement('video');
+      const path: string = this.detailsService.getDetails().path;
       video.src = window.URL.createObjectURL(file.file);
       video.preload = 'metadata';
       video.onloadedmetadata =  ()=> {
         videos.push({
           id: '1',
-          name: file.file.name,
+          name: `${path}/${file.file.name}`,
           format: VIDEO_FORMATS.LEFT_EYE_ON_TOP,
           length: Math.round(video.duration)
         });

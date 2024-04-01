@@ -18,7 +18,7 @@
                placeholder="video path...">
         <mat-autocomplete requireSelection #videoAuto="matAutocomplete" [displayWith]="getVideoOptionText">
           @for (video of filteredVideoOptions; track video.id) {
-            <mat-option [value]="video">{{video.name}}</mat-option>
+            <mat-option [value]="video">{{video.name | fileFromPath}}</mat-option>
           }
         </mat-autocomplete>
       </mat-form-field>
@@ -36,6 +36,7 @@
     </span>
   </div>
   <div class="scene-table__question-container"
+       [id]="'video' + video.id + 'question' + questionId"
        *ngFor="let question of video.questions; let questionId = index">
     <div class="scene-table__question">
       <div class="scene-table__question-title-top">
