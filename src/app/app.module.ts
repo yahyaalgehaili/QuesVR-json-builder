@@ -37,6 +37,8 @@ import {UploadVideoFilesDialogComponent} from "./dialogs/upload-video-files-dial
 import {VideoListItemComponent} from "./components/video-list-item/video-list-item.component";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {FileFromPathPipe} from "./pipes/file-from-path.pipe";
+import {ResultsOverviewComponent} from "./components/results-overview/results-overview.component";
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -51,41 +53,43 @@ import {FileFromPathPipe} from "./pipes/file-from-path.pipe";
     VideoListComponent,
     VideoListItemComponent,
     UploadVideoFilesDialogComponent,
+    ResultsOverviewComponent,
     DragDropDirective
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        NgOptimizedImage,
-        DragDropModule,
-        BrowserAnimationsModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
-        MatIconModule,
-        MatSidenavModule,
-        FormsModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatSelectModule,
-        ClipboardModule,
-        MatDialogModule,
-        NgJsonEditorModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        MatMenuModule,
-        PanZoomComponent,
-        BuilderToolbarComponent,
-        WizardStepsComponent,
-        MatInputModule,
-        MatTableModule,
-        MatAutocompleteModule,
-        FileFromPathPipe
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgOptimizedImage,
+    DragDropModule,
+    BrowserAnimationsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    MatIconModule,
+    MatSidenavModule,
+    FormsModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatSelectModule,
+    ClipboardModule,
+    MatDialogModule,
+    NgJsonEditorModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatMenuModule,
+    PanZoomComponent,
+    BuilderToolbarComponent,
+    WizardStepsComponent,
+    MatInputModule,
+    MatTableModule,
+    MatAutocompleteModule,
+    FileFromPathPipe,
+    MatChipsModule
+  ],
   providers: [],
   exports: [
     DragDropDirective

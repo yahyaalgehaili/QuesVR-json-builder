@@ -12,16 +12,23 @@
         <div></div>
       }
       @case(1) {
-        <app-video-list  [videos]="videos" (upload)="setVideos($event)"></app-video-list>
+        <app-video-list [videos]="videos" (upload)="setVideos($event)"></app-video-list>
       }
       @case(2) {
         @if (scene$ | async; as scene) {
           <app-builder [videos]="videos" [scene]="scene" (sceneUpdate)="updateScene($event)" class="builder-workflow__builder"></app-builder>
         }
-
       }
       @case(3) {
-        <div>preview</div>
+        <div></div>
+        @if ({details: details$ | async, scene: scene$ | async}; as detailsScene) {
+          <ng-container *ngIf="detailsScene.scene as scene">
+            <ng-container *ngIf="detailsScene.details as details">
+              <app-results-overview [details]="details" [videos]="videos" [scene]="scene"></app-results-overview>
+            </ng-container>
+          </ng-container>
+        }
+        <div></div>
       }
     }
 
