@@ -1,24 +1,27 @@
 <div class="video-list">
 @if(videos && videos.length  > 0) {
   <div class="video-list__actions">
-    <button mat-stroked-button color="primary" (click)="videoService.openUploadDialog()"><mat-icon>add</mat-icon> Add</button>
+    <button mat-stroked-button color="primary" (click)="videoService.openUploadDialog()">
+      <mat-icon>add</mat-icon>
+      {{ 'GENERAL.ADD' | translate }}
+    </button>
   </div>
   <div class="video-list__content">
     <table mat-table [dataSource]="videos">
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>id</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'VIDEO_LIST.TABLE.ID' | translate }}</th>
         <td mat-cell *matCellDef="let element"><mat-icon>movie</mat-icon></td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>name</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'VIDEO_LIST.TABLE.NAME' | translate }}</th>
         <td mat-cell *matCellDef="let element">{{ element.name | fileFromPath}}</td>
       </ng-container>
       <ng-container matColumnDef="length">
-        <th mat-header-cell *matHeaderCellDef>length</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'VIDEO_LIST.TABLE.LENGTH' | translate }}</th>
         <td mat-cell *matCellDef="let element">{{ element.length * 1000 | date:'mm:ss' }}</td>
       </ng-container>
       <ng-container matColumnDef="format">
-        <th mat-header-cell *matHeaderCellDef>format</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'VIDEO_LIST.TABLE.FORMAT' | translate }}</th>
         <td mat-cell *matCellDef="let element">{{ element.format }}</td>
       </ng-container>
       <ng-container matColumnDef="action">
@@ -36,10 +39,10 @@
   <div class="video-list__empty-state" appDragDrop (files)="uploadFiles($event)" (click)="fileUpload.click()">
     <input class="video-list__empty-state-file-input" type="file" multiple accept="vieo/mp4" (change)="onFileSelect($event)" #fileUpload>
     <mat-icon>library_add</mat-icon>
-    <h2>Select your videos to upload</h2>
-    <span>or Drag and Drop videos</span>
-    <span>or</span>
-    <button mat-stroked-button color="primary" (click)="addFilesManually($event)">Add manually</button>
+    <h2>{{ 'VIDEO_LIST.SELECT_VIDEO' | translate }}</h2>
+    <span>{{ 'VIDEO_LIST.SELECT_DRAG_AND_DROP' | translate }}</span>
+    <span>{{ 'VIDEO_LIST.OR' | translate }}</span>
+    <button mat-stroked-button color="primary" (click)="addFilesManually($event)">{{ 'VIDEO_LIST.ADD_MANUALLY' | translate }}</button>
   </div>
 }
 </div>

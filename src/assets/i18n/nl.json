@@ -1,18 +1,40 @@
 {
   "BUILDER": {
     "ADD": "Voeg een nieuwe video toe",
-    "CLEAR": "Verwijder alle videos",
+    "ADD_OPTION": "Voeg optie toe",
+    "ADD_QUESTION": "Voeg vraag toe",
+    "CLEAR": "Verwijder alle video's",
     "CODE": "Open de code sidebar",
     "CODE_SLIDER": {
-      "HEADER": "Json preview"
+      "HEADER": "Json voorweergave"
     },
     "COPY_SCENE": "De Json structuur van de scene is gekopieerd.",
+    "END": "Einde",
     "IMPORT": "Importeer een bestaande JSON structuur",
     "MENU": "Open de video sidebar",
+    "OPTION_PLACEHOLDER": "Keuze label...",
+    "QUESTION_PLACEHOLDER": "Vraag...",
+    "REMOVE_OPTION": "Verwijder keuze",
+    "REMOVE_QUESTION": "Verwijder vraag",
+    "REMOVE_VIDEO": "Verwijder video",
+    "START": "Begin",
+    "VIDEO_END_LINK": "Einde video koppeling",
+    "VIDEO_PATH": "Video pad...",
     "VIDEO_SLIDER": {
       "ADD_VIDEO": "Voeg video toe",
-      "HEADER": "Videos"
+      "HEADER": "Video's"
     }
+  },
+  "DETAILS_FORM": {
+    "DESCRIPTION_INPUT": "Omschrijving",
+    "TITLE": "Project details",
+    "TITLE_INPUT": "Titel"
+  },
+  "GENERAL": {
+    "ADD": "Voeg toe",
+    "CONTINUE": "Doorgaan",
+    "PREVIOUS": "Vorige",
+    "SUBMIT": "Indienen"
   },
   "HOME": {
     "CONTINUE_FROM_SAVE": "Ga verder vanuit import",
@@ -21,5 +43,42 @@
   },
   "NAVBAR": {
     "GETTING_STARTED": "Begin nu"
+  },
+  "RESULTS_OVERVIEW": {
+    "DOWNLOAD_CONFIG": "Download configuratie",
+    "FOLDER_TITLE": "Map voorbeeld",
+    "TABLE": {
+      "ID": "Id",
+      "NAME": "Naam",
+      "TYPE": "Type"
+    },
+    "TITLE": "Ervaring preview"
+  },
+  "VALIDATION": {
+    "REQUIRED": "Dit veld is verplicht"
+  },
+  "VIDEO_LIST": {
+    "ADD_MANUALLY": "Voeg handmatig toe",
+    "OR": "of",
+    "SELECT_DRAG_AND_DROP": "of Drag and Drop de video bestanden",
+    "SELECT_VIDEO": "Selecteer jou video's om te uploaden",
+    "TABLE": {
+      "FORMAT": "Formaat",
+      "ID": "Id",
+      "LENGTH": "Lengte",
+      "NAME": "Naam"
+    },
+    "TITLE": {
+      "MANUAL": "Video's handmatig toevoegen",
+      "UPLOAD": "Video's uploaden"
+    }
+  },
+  "WIZARD_STEPS": {
+    "DETAILS": "Details",
+    "EDITOR": "Editor",
+    "NEXT": "Volgende",
+    "PREVIEW": "Preview",
+    "PREVIOUS": "Vorige",
+    "VIDEOS": "Video's"
   }
 }

@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {NgClass} from "@angular/common";
+import {TranslateModule} from "@ngx-translate/core";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 export interface WizardStep {
   id: string;
@@ -27,7 +29,9 @@ export interface NavigationEvent {
   imports: [
     MatIconModule,
     MatButtonModule,
-    NgClass
+    NgClass,
+    TranslateModule,
+    MatTooltipModule
   ],
   templateUrl: './wizard-steps.component.html',
   styleUrl: './wizard-steps.component.scss'

@@ -1,8 +1,8 @@
 <span class="video-option">
   <a class="video-option__remove" (click)="removeItem()">
-    <mat-icon [matTooltip]="'remove option'">remove</mat-icon>
+    <mat-icon [matTooltip]="'BUILDER.REMOVE_OPTION' | translate">remove</mat-icon>
   </a>
-  <input [(ngModel)]="option.title" class="video-option__input" placeholder="option label..." (ngModelChange)="optionChange.emit(option)">
+  <input [(ngModel)]="option.title" class="video-option__input" [placeholder]="'BUILDER.OPTION_PLACEHOLDER' | translate" (ngModelChange)="optionChange.emit(option)">
   <a class="video-option__arrow"
      cdkDrag
      (cdkDragStarted)="onArrowDrag()"

@@ -6,6 +6,7 @@ import {BehaviorSubject, Observable, of} from "rxjs";
 import {VideoContextItem, VideoService} from "../../services/video.service";
 import {DetailsService} from "../../services/details.service";
 import {SceneService} from "../../services/scene.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-builder-workflow',
@@ -20,45 +21,47 @@ export class BuilderWorkflowComponent implements OnInit {
 
   details$: Observable<StoryInfo>;
 
-  workflowSteps: WizardStepList = {
-    activeStep: 0,
-    steps: [
-      {
-        id: 'details',
-        invalid: false,
-        label: 'details',
-        visited: false,
-      },
-      {
-        id: 'videos',
-        invalid: false,
-        label: 'videos',
-        visited: false,
-      },
-      {
-        id: 'editor',
-        invalid: false,
-        label: 'editor',
-        visited: false,
-      },
-      {
-        id: 'preview',
-        invalid: false,
-        label: 'preview',
-        visited: false,
-      },
-    ]
-  }
+  workflowSteps: WizardStepList;
 
   scene$: Observable<Scene>;
 
   constructor(
     private videoService: VideoService,
     private detailsService: DetailsService,
+    private translateService: TranslateService,
     private sceneService: SceneService
   ) {}
 
   ngOnInit(): void {
+    this.workflowSteps = {
+      activeStep: 0,
+      steps: [
+        {
+          id: 'details',
+          invalid: false,
+          label: this.translateService.instant('WIZARD_STEPS.DETAILS'),
+          visited: false,
+        },
+        {
+          id: 'videos',
+          invalid: false,
+          label: this.translateService.instant('WIZARD_STEPS.VIDEOS'),
+          visited: false,
+        },
+        {
+          id: 'editor',
+          invalid: false,
+          label: this.translateService.instant('WIZARD_STEPS.EDITOR'),
+          visited: false,
+        },
+        {
+          id: 'preview',
+          invalid: false,
+          label: this.translateService.instant('WIZARD_STEPS.PREVIEW'),
+          visited: false,
+        },
+      ]
+    }
     this.videos$ = this.videoService.getSelectedVideos$();
     this.details$ = this.detailsService.getDetails$();
     this.scene$ = this.sceneService.getScene$();

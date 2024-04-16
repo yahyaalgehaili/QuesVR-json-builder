@@ -1,6 +1,6 @@
 <div class="builder-workflow">
   <div class="builder-workflow__top-bar">
-    <app-wizard-steps class="builder-workflow__steps" [workflowSteps]="workflowSteps" (navigation)="switchStep($event)"></app-wizard-steps>
+    <app-wizard-steps class="builder-workflow__steps" *ngIf="workflowSteps" [workflowSteps]="workflowSteps" (navigation)="switchStep($event)"></app-wizard-steps>
   </div>
   <div class="builder-workflow__container" *ngIf="videos$ | async as videos">
     @switch (workflowSteps.activeStep) {
@@ -37,12 +37,12 @@
     <button mat-flat-button
             color="primary"
             (click)="switchStep({transport: 1})">
-      continue
+      {{ 'GENERAL.CONTINUE' | translate }}
     </button>
     <button mat-stroked-button color="primary"
             *ngIf="workflowSteps.activeStep > 0"
             (click)="switchStep({transport: -1})">
-      previous
+      {{ 'GENERAL.PREVIOUS' | translate }}
     </button>
   </div>
 </div>

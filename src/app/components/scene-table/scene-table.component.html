@@ -15,7 +15,7 @@
                [matAutocomplete]="videoAuto"
                (input)="filter()"
                (focus)="filter()"
-               placeholder="video path...">
+               [placeholder]="'BUILDER.VIDEO_PATH' | translate">
         <mat-autocomplete requireSelection #videoAuto="matAutocomplete" [displayWith]="getVideoOptionText">
           @for (video of filteredVideoOptions; track video.id) {
             <mat-option [value]="video">{{video.name | fileFromPath}}</mat-option>
@@ -25,7 +25,7 @@
 
     </span>
     <span class="scene-table__delete-action" *ngIf="video.id !== 0">
-      <button mat-icon-button (click)="removeVideo()" [matTooltip]="'Remove video'">
+      <button mat-icon-button (click)="removeVideo()" [matTooltip]="'BUILDER.REMOVE_VIDEO' | translate">
         <mat-icon>delete</mat-icon>
       </button>
     </span>
@@ -40,18 +40,18 @@
        *ngFor="let question of video.questions; let questionId = index">
     <div class="scene-table__question">
       <div class="scene-table__question-title-top">
-        <input class="scene-table__question-title" placeholder="question to ask..." [(ngModel)]="question.title" (ngModelChange)="this.onUpdate.emit(this.video)">
-        <button mat-icon-button (click)="removeQuestion(questionId)" [matTooltip]="'remove question'">
+        <input class="scene-table__question-title" [placeholder]="'BUILDER.QUESTION_PLACEHOLDER' | translate" [(ngModel)]="question.title" (ngModelChange)="this.onUpdate.emit(this.video)">
+        <button mat-icon-button (click)="removeQuestion(questionId)" [matTooltip]="'BUILDER.REMOVE_VIDEO' | translate">
           <mat-icon>close</mat-icon>
         </button>
       </div>
       <div class="scene-table__question-title-bottom">
         <div class="scene-table__question-timestamp">
           <mat-icon [matTooltip]="'show question at timestamps...'">schedule</mat-icon>
-          <input type="number" min="-1" step="1" placeholder="start" [(ngModel)]="question.startAppearance" (ngModelChange)="this.onUpdate.emit(this.video)"
+          <input type="number" min="-1" step="1" [placeholder]="'BUILDER.START' | translate" [(ngModel)]="question.startAppearance" (ngModelChange)="this.onUpdate.emit(this.video)"
                  class="scene-table__question-timestamp-input">
           -
-          <input type="number" min="-1" step="1" placeholder="end" [(ngModel)]="question.endAppearance" (ngModelChange)="this.onUpdate.emit(this.video)"
+          <input type="number" min="-1" step="1" [placeholder]="'BUILDER.END' | translate" [(ngModel)]="question.endAppearance" (ngModelChange)="this.onUpdate.emit(this.video)"
                  class="scene-table__question-timestamp-input">
         </div>
       </div>
@@ -70,7 +70,7 @@
               (click)="addOption(questionId)"
               *ngIf="question.options.length < 4">
         <mat-icon>add</mat-icon>
-        <span>Add option</span>
+        <span>{{ 'BUILDER.ADD_OPTION'  | translate }}</span>
       </button>
     </div>
   </div>
@@ -79,7 +79,7 @@
             class="scene-table__add-question"
             (click)="addQuestion()">
       <mat-icon>add</mat-icon>
-      <span>Add question</span>
+      <span>{{ 'BUILDER.ADD_QUESTION' | translate }}</span>
     </button>
   </div>
   <div class="scene-table__add-question-container scene-table__next-video-container"
@@ -93,7 +93,7 @@
             [cdkDragData]="video.nextVideo"
             class="scene-table__next-video">
       <mat-icon>link</mat-icon>
-      <span>Video end link</span>
+      <span>{{ 'BUILDER.VIDEO_END_LINK' | translate }}</span>
     </button>
     <button mat-flat-button
             *ngIf="Number(video?.nextVideo) >= 0"

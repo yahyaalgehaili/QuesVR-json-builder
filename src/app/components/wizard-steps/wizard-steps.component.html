@@ -1,5 +1,5 @@
 <div class="wizard-steps">
-  <button mat-icon-button class="wizard-steps__arrow" (click)="previous()">
+  <button mat-icon-button class="wizard-steps__arrow" (click)="previous()" [matTooltip]="'WIZARD_STEPS.PREVIOUS' | translate">
     <mat-icon>chevron_left</mat-icon>
   </button>
   <div class="wizard-steps-container">
@@ -19,11 +19,11 @@
             }}
           </mat-icon>
         </a>
-        <a class="wizard-steps__step-label" (click)="selectStep($index)">{{ step.label }}</a>
+        <a class="wizard-steps__step-label" (click)="selectStep($index)">{{ step.label | translate }}</a>
       </div>
     }
   </div>
-  <button mat-icon-button class="wizard-steps__arrow" (click)="next()">
+  <button mat-icon-button class="wizard-steps__arrow" (click)="next()" [matTooltip]="'WIZARD_STEPS.NEXT' | translate">
     <mat-icon>chevron_right</mat-icon>
   </button>
 </div>

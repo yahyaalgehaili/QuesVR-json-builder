@@ -1,18 +1,40 @@
 {
   "BUILDER": {
     "ADD": "Add a new video",
+    "ADD_OPTION": "Add option",
+    "ADD_QUESTION": "Add question",
     "CLEAR": "Clear all videos",
     "CODE": "Open code sidebar",
     "CODE_SLIDER": {
       "HEADER": "Json preview"
     },
     "COPY_SCENE": "Succesfully copied the scene's json code.",
+    "END": "End",
     "IMPORT": "Import existing JSON structure",
     "MENU": "Open video sidebar",
+    "OPTION_PLACEHOLDER": "Option label...",
+    "QUESTION_PLACEHOLDER": "Question...",
+    "REMOVE_OPTION": "Remove option",
+    "REMOVE_QUESTION": "Remove question",
+    "REMOVE_VIDEO": "Remove video",
+    "START": "Start",
+    "VIDEO_END_LINK": "Video end link",
+    "VIDEO_PATH": "Video path...",
     "VIDEO_SLIDER": {
       "ADD_VIDEO": "Add video",
       "HEADER": "Videos"
     }
+  },
+  "DETAILS_FORM": {
+    "DESCRIPTION_INPUT": "Description",
+    "TITLE": "Project details",
+    "TITLE_INPUT": "Title"
+  },
+  "GENERAL": {
+    "ADD": "Add",
+    "CONTINUE": "Continue",
+    "PREVIOUS": "Previous",
+    "SUBMIT": "Submit"
   },
   "HOME": {
     "CONTINUE_FROM_SAVE": "Continue from save",
@@ -21,5 +43,42 @@
   },
   "NAVBAR": {
     "GETTING_STARTED": "Get started"
+  },
+  "RESULTS_OVERVIEW": {
+    "DOWNLOAD_CONFIG": "Download config",
+    "FOLDER_TITLE": "Folder example",
+    "TABLE": {
+      "ID": "Id",
+      "NAME": "Name",
+      "TYPE": "Type"
+    },
+    "TITLE": "Experience preview"
+  },
+  "VALIDATION": {
+    "REQUIRED": "This field is required"
+  },
+  "VIDEO_LIST": {
+    "ADD_MANUALLY": "Add manually",
+    "OR": "or",
+    "SELECT_DRAG_AND_DROP": "or Drag and Drop video files",
+    "SELECT_VIDEO": "Select your videos to upload",
+    "TABLE": {
+      "FORMAT": "Format",
+      "ID": "Id",
+      "LENGTH": "Length",
+      "NAME": "Name"
+    },
+    "TITLE": {
+      "MANUAL": "Add videos manually",
+      "UPLOAD": "Upload videos"
+    }
+  },
+  "WIZARD_STEPS": {
+    "DETAILS": "Details",
+    "EDITOR": "Editor",
+    "NEXT": "Next",
+    "PREVIEW": "Preview",
+    "PREVIOUS": "Previous",
+    "VIDEOS": "Videos"
   }
 }
