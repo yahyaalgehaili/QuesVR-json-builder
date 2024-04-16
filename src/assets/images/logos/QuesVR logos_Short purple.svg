@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #22094f;
+      }
+
+      .cls-2 {
+        font-family: Outfit-Medium, Outfit,sans-serif;
+        font-size: 542.28px;
+        font-variation-settings: 'wght' 500;
+        font-weight: 500;
+      }
+    </style>
+  </defs>
+  <g id="Logo_small" data-name="Logo small">
+    <text class="cls-2" transform="translate(26.5 628.6)"><tspan x="0" y="0">Q</tspan></text>
+    <text class="cls-2" transform="translate(471.17 628.6) scale(.7)"><tspan x="0" y="0">VR</tspan></text>
+    <g>
+      <circle class="cls-1" cx="416.07" cy="614.17" r="28.28"/>
+      <circle class="cls-1" cx="478.49" cy="676.58" r="28.28"/>
+      <circle class="cls-1" cx="540.9" cy="738.99" r="28.28"/>
+      <circle class="cls-1" cx="603.31" cy="801.41" r="28.28"/>
+    </g>
+  </g>
+</svg>
