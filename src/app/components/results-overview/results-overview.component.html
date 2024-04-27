@@ -13,7 +13,10 @@
               {{videos.length}}
             </span>
           </mat-chip>
-          <button mat-flat-button [color]="'primary'" (click)="downloadConfigs()">{{ 'RESULTS_OVERVIEW.DOWNLOAD_CONFIG' | translate }}</button>
+          <button mat-flat-button [color]="'primary'" (click)="downloadConfigs()">
+            <mat-icon>download</mat-icon>
+            {{ 'RESULTS_OVERVIEW.DOWNLOAD_CONFIG' | translate }}
+          </button>
         </div>
       </div>
     </div>

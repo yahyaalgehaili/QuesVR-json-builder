@@ -3,12 +3,12 @@
     <img ngSrc="assets/images/logos/QuesVR%20logos_Full%20purple.svg" priority="true" height="120" width="120" alt="QuesVR logo">
   </a>
   <div class="nav-bar__actions">
-    <button mat-flat-button color="primary" (click)="navigateToBuilder()">{{ 'NAVBAR.GETTING_STARTED' | translate }}</button>
     <button mat-button color="primary" class="nav-bar__language-action" [matMenuTriggerFor]="languageMenu">{{ selectedLanguage | async | uppercase }}</button>
     <mat-menu #languageMenu="matMenu" class="nav-bar__language-menu">
       @for (lang of languages; track lang) {
         <button mat-button (click)="setLanguage(lang)">{{ lang | uppercase }}</button>
       }
     </mat-menu>
+    <button mat-flat-button color="primary" (click)="navigateToBuilder()">{{ 'NAVBAR.GETTING_STARTED' | translate }}</button>
   </div>
 </header>

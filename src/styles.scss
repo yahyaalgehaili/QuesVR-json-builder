@@ -54,6 +54,10 @@ span, p, a, button {
   }
 }
 
+.mdc-button {
+  border-radius: 100px !important;
+}
+
 .nav-bar__language-menu {
   min-width: 0 !important;
 
@@ -144,15 +148,15 @@ span, p, a, button {
   --secondary-contrast-A700 : #ffffff;
 
   // neutral colors
-  --neutral-50 : #edebef;
-  --neutral-100 : #d1cdd8;
-  --neutral-200 : #b3abbe;
-  --neutral-300 : #9489a4;
-  --neutral-400 : #7d7091;
-  --neutral-500 : #66577d;
-  --neutral-600 : #5e4f75;
-  --neutral-700 : #53466a;
-  --neutral-800 : #493c60;
+  --neutral-50 : #f8f6fa;
+  --neutral-100 : #e9e6ed;
+  --neutral-200 : #d1cdd8;
+  --neutral-300 : #b3abbe;
+  --neutral-400 : #9489a4;
+  --neutral-500 : #7d7091;
+  --neutral-600 : #66577d;
+  --neutral-700 : #5e4f75;
+  --neutral-800 : #53466a;
   --neutral-900 : #382c4d;
   --neutral-A100 : #bc99ff;
   --neutral-A200 : #9b66ff;

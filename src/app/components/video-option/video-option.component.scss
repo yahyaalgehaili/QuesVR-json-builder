@@ -3,16 +3,13 @@
   align-items: center;
   justify-content: space-between;
   z-index: 2;
-  border-radius: 4px;
-  margin: 4px 8px;
   height: 40px;
-  background-color: white;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, .05);
+  background-color: var(--neutral-50);
+  border-bottom: 1px var(--neutral-contrast-50) solid;
 
   &__remove {
-    border-radius: 4px 0 0 4px;
-    background-color: cornflowerblue;
-    color: cornflowerblue;
+    background-color: var(--primary-500);
+    color: var(--primary-500);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -24,21 +21,21 @@
     cursor: pointer;
 
     &:hover {
-      color: white;
-      background-color: #7ba7f3;
+      color: var(--primary-contrast-500);
+      background-color: var(--primary-500);
     }
 
     &:active {
-      background-color: #4d80dc;
+      background-color: var(--primary-500);
     }
   }
 
   &:has(> .video-option__input:focus-visible) {
-    background-color: #eef2fd;
+    background-color: var(--neutral-50);
   }
 
   &:hover {
-    background-color: #eef2fd;
+    background-color: var(--neutral-50);
   }
 
   &__input {
@@ -65,7 +62,7 @@
 
     &:active {
       box-shadow: 0 0 4px 0 rgba(0, 0, 0, .05);
-      background-color: cornflowerblue;
+      background-color: var(--primary-500);
       border-radius: 50%;
       pointer-events: none;
     }

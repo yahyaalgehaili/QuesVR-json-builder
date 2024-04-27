@@ -56,6 +56,7 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('videoInput') videoInput: ElementRef<HTMLInputElement>;
   videoOptions: VideoContextItem[] = [];
   filteredVideoOptions: VideoContextItem[] = [];
+  selectedVideo: VideoContextItem;
 
   videoControl: FormControl<VideoContextItem | null> = new FormControl<VideoContextItem | null>(null);
 
@@ -97,6 +98,7 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.video.fileName = value.name;
         this.video.videoFormat = value.format;
         this.onUpdate.emit(this.video);
+        this.selectedVideo = value;
       }
     })
   }
