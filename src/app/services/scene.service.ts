@@ -5,6 +5,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 export interface ValidationModel {
   error: string;
   id?: string;
+  translationString?: string;
 }
 
 export const defaultScene: Scene = {
@@ -52,17 +53,17 @@ export class SceneService {
     }
 
     if (scene.videos && scene.videos.length < 1) {
-      return {error:  'invalid base; missing videos'}
+      return {error:  'invalid base; missing videos', translationString: 'VIDEO.VALIDATION.MISSING_VIDEOS'}
     }
 
-    return {error: 'invalid base'}
+    return {error: 'invalid base', translationString: 'VIDEO.VALIDATION.DEFAULT'}
   }
 
   validateInitialVideo(scene: Scene): ValidationModel | null {
     if (!!scene.videos.find((video) => video.id === 0)) {
       return null;
     }
-    return {error: 'invalid videos; missing video with id = 0'}
+    return {error: 'invalid videos; missing video with id = 0', translationString: 'VIDEO.VALIDATION.MISSING_INIT_VIDEO'}
   }
 
   validateSceneVideos(scene: Scene): ValidationModel | null {
@@ -71,7 +72,7 @@ export class SceneService {
       return invalidVideo ? this.validateSceneVideo(invalidVideo) : null;
     }
 
-    return {error: 'invalid videos; missing videos'};
+    return {error: 'invalid videos; missing videos', translationString: 'VIDEO.VALIDATION.MISSING_VIDEOS'};
 
   }
 
@@ -84,7 +85,7 @@ export class SceneService {
       return this.validateSceneVideoQuestions(video);
 
     }
-    return {error: 'invalid videos; missing crucial video data', id: video.id.toString()}
+    return {error: 'invalid videos; missing crucial video data', id: video.id.toString(), translationString: 'VIDEO.VALIDATION.MISSING_DATA'}
   }
 
   validateSceneVideoQuestions(video: VideoModel): ValidationModel | null {
@@ -100,13 +101,13 @@ export class SceneService {
   validateSceneVideoQuestion(question: QuestionModel, id: string): ValidationModel | null {
     if (question && question.title && question.endAppearance !== null && question.startAppearance !== null && question.options) {
       if (question.options.length === 0) {
-        return {error: 'invalid question; missing available options', id};
+        return {error: 'invalid question; missing available options', id, translationString: 'VIDEO.VALIDATION.MISSING_OPTIONS'};
       }
 
       return this.validateSceneVideoQuestionOptions(question, id);
     }
 
-    return {error: 'invalid question; missing crucial question data', id};
+    return {error: 'invalid question; missing crucial question data', id, translationString: 'VIDEO.VALIDATION.MISSING_QUESTION_DATA'};
   }
 
   validateSceneVideoQuestionOptions(question: QuestionModel, id: string): ValidationModel | null {
@@ -123,7 +124,7 @@ export class SceneService {
     if (option && option.title && !(option.gotoId === null || option.gotoId === undefined)) {
       return null;
     }
-    return {error: 'invalid option; missing crucial option data', id};
+    return {error: 'invalid option; missing crucial option data', id, translationString: 'VIDEO.VALIDATION.OPTION_DATA'};
   }
 
 }

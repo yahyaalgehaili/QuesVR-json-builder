@@ -46,7 +46,8 @@ export class SceneTableComponent implements OnInit, AfterViewInit, OnDestroy {
   arrowOptions: any = {
     path: 'grid',
     startSocket: 'bottom',
-    endSocket: 'left'
+    endSocket: 'left',
+    color: 'var(--secondary-400)'
   }
 
   nextVideoActionElementId: string;

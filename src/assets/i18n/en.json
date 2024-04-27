@@ -58,6 +58,17 @@
   "VALIDATION": {
     "REQUIRED": "This field is required"
   },
+  "VIDEO": {
+    "VALIDATION": {
+      "DEFAULT": "Invalid experience: There is data missing for a valid experience",
+      "MISSING_DATA": "Invalid experience: Crucial data is missing in video {{id}}. Please check the video format, file name and the questions",
+      "MISSING_INIT_VIDEO": "Invalid experience: Missing initial video with id 0",
+      "MISSING_OPTIONS": "Invalid experience: Missing options to question with id {{id}}",
+      "MISSING_QUESTION_DATA": "Invalid experience: Crucial data is missing for question with id {{id}}. Please check the question, end appearance, start appearance and the options",
+      "MISSING_VIDEOS": "Invalid experience: Experience has no videos",
+      "OPTION_DATA": "Invalid experience: Crucial data is missing for option with id {{id}}. Please check the option title and link"
+    }
+  },
   "VIDEO_LIST": {
     "ADD_MANUALLY": "Add manually",
     "OR": "or",

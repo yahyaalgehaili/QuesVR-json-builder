@@ -37,7 +37,8 @@ export class VideoOptionComponent implements OnInit, AfterViewInit, OnDestroy {
   arrowOptions: any = {
     path: 'grid',
     startSocket: 'right',
-    endSocket: 'left'
+    endSocket: 'left',
+    color: 'var(--secondary-400)'
   }
 
   updatedTable$: Observable<boolean>;

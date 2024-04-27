@@ -58,6 +58,17 @@
   "VALIDATION": {
     "REQUIRED": "Dit veld is verplicht"
   },
+  "VIDEO": {
+    "VALIDATION": {
+      "DEFAULT": "Ongeldige ervaring: Er missen gegevens voor een geldige ervaring",
+      "MISSING_DATA": "Ongeldige ervaring: Cruciale data mist in video met id {{id}}. Kijk de volgende onderdelen na: het video formaat, bestandsnaam en de vragen",
+      "MISSING_INIT_VIDEO": "Ongelidige ervaring: De initiele video met id 0 mist",
+      "MISSING_OPTIONS": "Ongeldige ervaring: Er zijn geen opties voor de vraag met id {{id}}",
+      "MISSING_QUESTION_DATA": "Ongeldige ervaring: Cruciale data mist voor de vraag met id {{id}}. Kijk de volgene onderdelen na: de vraag, start, einde en de opties",
+      "MISSING_VIDEOS": "Ongeldige ervaring: Ervaring heeft geen videos",
+      "OPTION_DATA": "Ongeldige ervaring: Cruciale data mist voor de optie met id {{id}}. Kijk de volgende onderdelen na: De optie en de link"
+    }
+  },
   "VIDEO_LIST": {
     "ADD_MANUALLY": "Voeg handmatig toe",
     "OR": "of",

@@ -5,8 +5,9 @@ import {DetailsFormModel} from "../../components/details-form/details-form.compo
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {VideoContextItem, VideoService} from "../../services/video.service";
 import {DetailsService} from "../../services/details.service";
-import {SceneService} from "../../services/scene.service";
+import {SceneService, ValidationModel} from "../../services/scene.service";
 import {TranslateService} from "@ngx-translate/core";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-builder-workflow',
@@ -29,7 +30,8 @@ export class BuilderWorkflowComponent implements OnInit {
     private videoService: VideoService,
     private detailsService: DetailsService,
     private translateService: TranslateService,
-    private sceneService: SceneService
+    private sceneService: SceneService,
+    private snackbar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -114,7 +116,13 @@ export class BuilderWorkflowComponent implements OnInit {
         return this.validateVideos();
       case 2:
         this.nextStepObservable.next(!!this.sceneService.validateScene(this.sceneService.getScene()));
-        return !this.sceneService.validateScene(this.sceneService.getScene());
+        const sceneValidation: ValidationModel | null = this.sceneService.validateScene(this.sceneService.getScene());
+        if (sceneValidation?.translationString) {
+          this.snackbar.open(this.translateService.instant(sceneValidation?.translationString, {id: sceneValidation.id}),
+            undefined ,
+            {duration: 5000});
+        }
+        return !sceneValidation;
       default:
         return true
     }
