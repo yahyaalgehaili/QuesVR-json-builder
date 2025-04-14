@@ -1,6 +1,6 @@
 {
   "name": "quesvr-json-builder",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -28,7 +28,6 @@
     "ang-jsoneditor": "^3.1.1",
     "jsoneditor": "^9.10.2",
     "ngx-panzoom": "^17.0.0",
-    "ngx-translate": "^0.0.1-security",
     "pixi.js": "^8.1.0",
     "rxjs": "~7.8.1",
     "tslib": "^2.3.0",
